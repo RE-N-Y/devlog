@@ -3,6 +3,7 @@ import HeaderLink from "./HeaderLink.astro"
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"
 import twitter from "@/src/icons/twitter.svg?raw"
 import github from "@/src/icons/github.svg?raw"
+import coffee from "@/src/icons/coffee.svg?raw"
 ---
 
 <header class="container mx-auto mb-12">
@@ -21,6 +22,7 @@ import github from "@/src/icons/github.svg?raw"
 		<div class="flex gap-x-4">
 			<HeaderLink href="https://github.com/RE-N-Y"><Fragment set:html={github} /></HeaderLink>
 			<HeaderLink href="https://twitter.com/sleenyre"><Fragment set:html={twitter} /></HeaderLink>
+			<HeaderLink href="https://www.buymeacoffee.com/sangwulee2g"><Fragment set:html={coffee} /></HeaderLink>
 		</div>
 	</nav>
 </header>
