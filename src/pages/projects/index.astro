@@ -4,19 +4,24 @@ import Card from "@/src/components/Card.astro"
 import Divider from "@/src/components/Divider.astro"
 import { Image } from "@astrojs/image/components"
 import dataset from "@/src/icons/dataset.svg?raw"
-import github from "@/src/icons/github.svg?raw"
+import laptop from "@/src/icons/laptop.svg?raw"
 ---
 
 <Page>
 	<Card class="center">
-		<h2>
-			<a href="https://lenia.vercel.app/">Lenia</a>
-		</h2>
+		<h2>Lenia</h2>
 		<div class="center m-4 rounded-lg bg-white p-4">
 			<video class="aspect-square rounded-lg" height={512} width={512} src="/devlog/lenia.webm" autoplay loop></video>
 			<p>Running Neural Celluar Auotmata on the web</p>
 		</div>
 		<Divider />
+		<div class="flex gap-x-12">
+			<div>
+				<Fragment set:html={laptop} />
+				<h3><a href="https://lenia.vercel.app/">Demo</a></h3>
+				<span>Built with Svelte</span>
+			</div>
+		</div>
 		<p class="p-4">
 			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
 			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
