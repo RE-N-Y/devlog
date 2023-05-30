@@ -1,0 +1,10 @@
+---
+import clsx from 'clsx';
+
+const _class = Astro.props.class
+---
+
+
+<div class={clsx("p-4 shadow", _class)}>
+    <slot/>
+</div>

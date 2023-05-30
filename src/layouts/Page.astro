@@ -1,0 +1,20 @@
+---
+import BaseHead from "@/src/components/BaseHead.astro"
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/src/consts"
+import Header from "@/src/components/Header.astro"
+import Footer from "@/src/components/Footer.astro"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main class="container mx-auto max-w-5xl">
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>

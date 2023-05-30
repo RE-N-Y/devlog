@@ -1,25 +1,26 @@
 ---
-import HeaderLink from './HeaderLink.astro';
-import { SITE_TITLE } from '../consts';
+import HeaderLink from "./HeaderLink.astro"
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"
+import twitter from "@/src/icons/twitter.svg?raw"
+import github from "@/src/icons/github.svg?raw"
 ---
 
-<header>
-	<h2>
-		{SITE_TITLE}
-	</h2>
-	<nav>
-		<HeaderLink href="/">Home</HeaderLink>
-		<HeaderLink href="/blog">Blog</HeaderLink>
-		<HeaderLink href="/about">About</HeaderLink>
-		<HeaderLink href="https://twitter.com/astrodotbuild" target="_blank">Twitter</HeaderLink>
-		<HeaderLink href="https://github.com/withastro/astro" target="_blank">GitHub</HeaderLink>
+<header class="container mx-auto mb-12">
+	<div class="py-4">
+		<h1>{SITE_TITLE}</h1>
+		<h2>{SITE_DESCRIPTION}</h2>
+	</div>
+	<nav class="flex">
+		<div class="flex grow gap-x-8">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/papers">Papers</HeaderLink>
+			<HeaderLink href="/projects">Projects</HeaderLink>
+			<!-- <HeaderLink href="/rambling">Rambling</HeaderLink> -->
+			<!-- <HeaderLink href="/thanks">Thanks</HeaderLink> -->
+		</div>
+		<div class="flex gap-x-4">
+			<HeaderLink href="https://github.com/RE-N-Y"><Fragment set:html={github} /></HeaderLink>
+			<HeaderLink href="https://twitter.com/sleenyre"><Fragment set:html={twitter} /></HeaderLink>
+		</div>
 	</nav>
 </header>
-<style>
-	header {
-		margin: 0em 0 2em;
-	}
-	h2 {
-		margin: 0.5em 0;
-	}
-</style>

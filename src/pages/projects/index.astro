@@ -1,0 +1,51 @@
+---
+import Page from "@/src/layouts/Page.astro"
+import Card from "@/src/components/Card.astro"
+import Divider from "@/src/components/Divider.astro"
+import { Image } from "@astrojs/image/components"
+import dataset from "@/src/icons/dataset.svg?raw"
+import github from "@/src/icons/github.svg?raw"
+---
+
+<Page>
+	<Card class="center">
+		<h2>
+			<a href="https://lenia.vercel.app/">Lenia</a>
+		</h2>
+		<div class="center m-4 rounded-lg bg-white p-4">
+			<video class="aspect-square rounded-lg" height={512} width={512} src="/lenia.webm" autoplay loop></video>
+			<p>Running Neural Celluar Auotmata on the web</p>
+		</div>
+		<Divider />
+		<p class="p-4">
+			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
+			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
+			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
+			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
+		</p>
+	</Card>
+	<Card class="center">
+		<h2>Animefaces</h2>
+		<div class="center m-4 rounded-lg bg-white p-4">
+			<Image src="/animefaces.svg" width={512} aspectRatio={1} format="svg" alt="animefaces" />
+			<p class="text-gray-500 p-2">Samples from Stylegan implementation</p>
+		</div>
+		<Divider />
+		<div class="flex gap-x-12">
+			<div>
+				<Fragment set:html={dataset} />
+				<h3>Datasets</h3>
+				<a href="https://app.activeloop.ai/reny/animefaces">Animefaces 2M</a>
+			</div>
+		</div>
+		<p>
+			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for image
+			generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
+				href="https://gwern.net/">Gwern</a
+			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a clean,
+			hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I also write a
+			technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x, Real-ESRGAN
+			implementations in JAX. I plan to release the code and additional datasets in the future.
+		</p>
+	</Card>
+</Page>

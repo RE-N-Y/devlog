@@ -1,0 +1,32 @@
+---
+title: "Animefaces 2M dataset"
+description: "Developing a large-scale anime faces dataset."
+pubDate: "May 28, 2023"
+---
+
+## Overview
+
+Over the recent years, there have been multiple datasets in anime illustration generation space.
+Most of them are small-scale, and the largest one is [Danbooru dataset](https://gwern.net/danbooru2021) with ~5M images.
+Gwern has put a lot of effort into cleaning and annotating the dataset. He also created a subset of 512px portrait images.
+The only issue is that the dataset only contains 300K images and many images contain black frames around the image to ensure 512px size.
+Another good exisitng dataset is 90K images from [safebooru](https://www.kaggle.com/datasets/scribbless/another-anime-face-dataset) on Kaggle.
+The dataset quality is execellent, but lacks in size. Pixiv is a good source of anime illustrations.
+Steven Evan was kind enough to share his [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-of-pixiv-top-daily-illustration-2020) on Kaggle.
+The dataset consists of top ranking pixiv images from 2018 ~ 2020. However, the faces dataset suffers from low resolution and the faces are too tightly cropped for my taste.
+
+## Creating Animefaces 2M dataset
+
+For that reason, I decided to create a large-scale anime faces dataset from these datasets.
+
+### Removing problematic images
+
+The largest source of anime illustrations is Gwern's danbooru dataset. Thanks to kind people in the internet, the dataset contains many NSFW images.
+Thankfully, danbooru dataset has a tag system that allows us to filter out NSFW images. Howevoer, there are plenty of other undesirable images. To list a few:
+
+- CG 3D images
+- Manga / Comic
+- Furries
+- Male images
+- Low resolution images
+- Cosplay images

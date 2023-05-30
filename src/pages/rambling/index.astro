@@ -1,0 +1,25 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts"
+import { getCollection } from "astro:content"
+import FormattedDate from "../../components/FormattedDate.astro"
+import Page from "@/src/layouts/Page.astro"
+
+const posts = (await getCollection("rambling")).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+---
+
+<Page>
+	<section>
+		<ul>
+			{
+				posts.map((post) => (
+					<>
+						<FormattedDate date={post.data.pubDate} />
+						<h1>
+							<a href={`/rambling/${post.slug}/`}>{post.data.title}</a>
+						</h1>
+					</>
+				))
+			}
+		</ul>
+	</section>
+</Page>
