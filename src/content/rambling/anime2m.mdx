@@ -1,7 +1,7 @@
 ---
 title: "Animefaces 2M dataset"
 description: "Developing a large-scale anime faces dataset."
-pubDate: "May 28, 2023"
+pubDate: "June 18, 2023"
 ---
 
 ## Overview
@@ -14,19 +14,126 @@ Another good exisitng dataset is 90K images from [safebooru](https://www.kaggle.
 The dataset quality is execellent, but lacks in size. Pixiv is a good source of anime illustrations.
 Steven Evan was kind enough to share his [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-of-pixiv-top-daily-illustration-2020) on Kaggle.
 The dataset consists of top ranking pixiv images from 2018 ~ 2020. However, the faces dataset suffers from low resolution and the faces are too tightly cropped for my taste.
+To address these issues, I decided to create a large-scale animefaces dataset combining all three sources.
 
-## Creating Animefaces 2M dataset
+![pipeline](/images/animefaces2m.svg)
 
-For that reason, I decided to create a large-scale anime faces dataset from these datasets.
+## Data cleaning, filtering, processing, and all that jazz
 
 ### Removing problematic images
 
 The largest source of anime illustrations is Gwern's danbooru dataset. Thanks to kind people in the internet, the dataset contains many NSFW images.
-Thankfully, danbooru dataset has a tag system that allows us to filter out NSFW images. Howevoer, there are plenty of other undesirable images. To list a few:
+Danbooru dataset has a tag system that allows us to filter out NSFW images. However, there are plenty of other undesirable images. To list a few:
 
-- CG 3D images
-- Manga / Comic
-- Furries
-- Male images
-- Low resolution images
-- Cosplay images
+- CG 3D images (tags: 3d)
+- Manga / Comic (tags: comic)
+- Furries (tags: furry)
+- Cosplay images (tags: cosplay)
+
+After manually identifying problematic images and their tags, I also wanted to find similar tags to the ones I identified.
+There are multiple approaches to find similar tags. One could simply extract GloVe/Word2Vec embeddings and find similar tags using cosine similarity.
+However, since the tags found in corpus are somewhat different to ones you might find in natural langauge, I've decided to resort to a more classical approach: [TF-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf).
+
+The original TF-IDF algorithm is typically used to determine how relevant a word is to a document in a collection of documents. In my case, I use a modified version where I use it to find similar tags.
+Below is a short pseduocode for the algorithm:
+
+```python
+# INPUTS
+# TAGS:list[str] = list of all tags in the dataset
+# POST_TAGS:list[list[str]] = list of tags for a given post
+
+cooccurance = onp.zeros((len(TAGS), len(TAGS)))
+
+# build cooccurance matrix
+for tags in POST_TAGS:
+    for tag1 in tags:
+        for tag2 in tags:
+            cooccurance[TAGS.index(tag1), TAGS.index(tag2)] += 1
+
+# compute TF-IDF
+tf = cooccurance / cooccurance.sum(axis=1)
+idf = onp.log(cooccurance.shape[0] / cooccurance.sum(axis=0))
+tfidf = tf * idf
+
+# query similar tags
+tag = "furry"
+similar_tags = TAGS[onp.argsort(tfidf[TAGS.index(tag)])[::-1]]
+print(similar_tags)
+```
+
+For readers who are not familiar with TF-IDF, the key intuition behind TF-IDF come in two parts. Firstly, if two tags co-occur frequently, they are likely to be similar. Secondly, if a tag appears in many posts, it is likely to be less relevant.
+For instance, the tags "comic" and "4-koma" are likely to co-occur frequently. However, the tag "comic" and "1girl" are also likely to co-occur frequently becuase "1girl" is a very common tag.
+Therefore, we need to weigh the co-occurance by the inverse of the number of posts that contain the tag. This is exactly what TF-IDF does.
+It's easy to see that the above algorithm runs in $O(N^2)$ time, where $N$ is the number of tags. For that reason, I decided to only use top 1024 frequent tags.
+
+### Filtering out the obvious
+
+Even after removing NSFW images and other problematic images, there are still many images that are not suitable for training.
+
+- Images that are too small
+- Images that are too large
+- Files that are not images (gif/mp4)
+- Images are in both .jpg and .png format
+
+The steps for filtering and processing these images were somewhat obvious. In fact, I have to credit Gwern here again for his detailed [blog post](https://gwern.net/face#data-preparation).
+
+- Filter out any images that are not in jpg/png format using `grep`
+- Delete empty images using `find`
+- Filter out images whose file size is less than 40KB using `find`
+- Resize images to have max dimension of 1024px using `mogrify`
+
+### Face detection
+
+The next step is to detect faces in the images. For the longest time, [nagadomi's anime face detector](https://github.com/nagadomi/lbpcascade_animeface) has been a standard tool for anime face detection.
+For the most part, the detector works well on most cases and runs quite fast. But, I've noticed that the detector fails to detect faces in some images. For that reason, I've decided to use [hysts's YOLOv3 anime face detector](https://github.com/hysts/anime-face-detector)
+which not only yields better results but also provides facial landmarks. In this step, it's wise to filter out images containing multiple faces using "1girl" tag, but I was confident enough about the face detector that I skipped this step. After filtering out the faces, I disregard faces whose resolution is less than 64px. In rare cases where the face is larger than 512px, I rescale it down to 512px as well.
+
+### Upscaling and resizing
+
+The final step is to upscaling all the images to 512px resolution. The questino is how? The standard approach in this domain is to use [waifu2x](https://github.com/nagadomi/waifu2x) which is a CNN-based upscaler.
+A more recent approach is to use [ESRGAN](https://github.com/xinntao/Real-ESRGAN) which is a GAN-based upscaler. The ESRGAN model also has a 4x upscaler which is trained on anime dataset. I happened to have a decent access to K80 GPUs, so I decided to use ESRGAN for upscaling.
+Using these methods, I end up with 512x512 high resolution face images. A similar approach is used for both safebooru and pixiv datasets.
+
+### Deduplication and CLIP filtering
+
+The final step is to remove duplicate images and last round of quality checks. Since Danbooru dataset is quite large, it's likely that there are many duplicate images between and within the datasets.
+For deduplication, I use [imagededup](https://github.com/idealo/imagededup) library and use a MobileV3 embeddings to perform the deduplication across the images. This part is the most time consuming process.
+If anyone wants to perform deduplication on a larger dataset, I would advise using a ligther method such as PHash. After deduplication, I use CLIP to further filter out images that are not faces.
+
+CLIP is a model proposed by OpenAI which is been trained on billions of images and text pairs. The model has been widely used for many applications and quite useful for filtering content based on text prompts.
+Even after thorough filtering, I still found a couple of images which had undesirable content in style, format, and color. To filter out these cases, I use the following prompts:
+
+#### Manga / Comic
+
+- "a comic strip"
+- "an illustration"
+
+#### Color
+
+- "a monochrome image"
+- "an anime girl drawn in color"
+
+#### Style
+
+- "a girl drawn in realistic style",
+- "a photorealistic image",
+- "an anime girl drawn in rough sketch style",
+- "an anime girl drawn in common style"
+
+After manually playing around with a few thresholds, I find that around CLIP score of 0.7 ~ 0.8 works well for filtering out undesirable images.
+
+## Next steps
+
+The obvious next step is to extend the dataset to full illustrations. To the best of my knowledge many teams and companies (NovelAI / Waifu Diffusion) use Danbooru dataset for trianing diffusion models.
+I've gotten decent results using the current dataset, but I want to extend the data to incoporate full illustrations. I've already done basic cleaning/filtering/processing for the full illustrations, but I need to perform deduplication and CLIP filtering.
+I plan to release this dataset in the near future. But, here are a few ideas that I have in mind for the full illustration dataset.
+
+- Extract image text embeddings from CLIP/LLMs/SSL models
+- Ensure high quality images using Pixiv dataset as anchor
+- Figure out cropping and padding strategy
+- Translate Danbooru tags into natural text (OpenAI API)
+- Extract lines, depthmap, skeletons for ControlNet like training
+
+## Acknowledgements
+
+Again, I would like to thank Gwern, hysts, and nagadomi for their amazing work and contributions to the community.

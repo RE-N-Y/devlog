@@ -15,7 +15,7 @@ const posts = (await getCollection("rambling")).sort((a, b) => a.data.pubDate.va
 					<>
 						<FormattedDate date={post.data.pubDate} />
 						<h1>
-							<a href={`/rambling/${post.slug}/`}>{post.data.title}</a>
+							<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
 						</h1>
 					</>
 				))
