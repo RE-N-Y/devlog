@@ -11,6 +11,7 @@ import image from "@astrojs/image";
 export default defineConfig({
   site: 'https://nyre.github.io',
   base: '/devlog',
+  experimental: { assets: true },
   integrations: [
     mdx({ remarkPlugins: [remarkMath], rehypePlugins:[rehypeKatex] }), 
     sitemap(), 
