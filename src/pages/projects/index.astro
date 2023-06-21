@@ -18,15 +18,16 @@ import laptop from "@/src/icons/laptop.svg?raw"
 		<div class="flex gap-x-12">
 			<div>
 				<Fragment set:html={laptop} />
-				<h3><a href="https://lenia.vercel.app/">Demo</a></h3>
+				<h3 class="m-0"><a href="https://lenia.vercel.app/">Demo</a></h3>
 				<span>Built with Svelte</span>
 			</div>
 		</div>
 		<p class="p-4">
-			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
-			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
-			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
-			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
+			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper
+			and a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub.
+			The original lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made
+			a few adjustments to address these problems. Initial implementation was written in JAX. The web version was made using
+			tensorflow.js and SvelteKit.
 		</p>
 	</Card>
 	<Card class="center">
@@ -39,19 +40,19 @@ import laptop from "@/src/icons/laptop.svg?raw"
 		<div class="flex gap-x-12">
 			<div>
 				<Fragment set:html={dataset} />
-				<h3>Datasets</h3>
+				<h3 class="m-0">Datasets</h3>
 				<a href="https://app.activeloop.ai/reny/animefaces">Animefaces 2M</a>
 			</div>
 		</div>
 		<p>
-			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for image
-			generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
+			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for
+			image generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
 				href="https://gwern.net/">Gwern</a
-			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a clean,
-			hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I also write a
-			technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x, Real-ESRGAN
-			implementations in JAX. I also maintain it's pytorch counterparts. I plan to release the code and additional datasets in
-			the future.
+			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a
+			clean, hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I
+			also write a technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x,
+			Real-ESRGAN implementations in JAX. I also maintain it's pytorch counterparts. I plan to release the code and
+			additional datasets in the future.
 		</p>
 	</Card>
 </Page>
