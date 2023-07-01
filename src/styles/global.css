@@ -41,6 +41,10 @@
 	svg {
 		@apply text-text;
 	}
+
+	img {
+		@apply rounded-md;
+	}
 }
 
 @layer components {
