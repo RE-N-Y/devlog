@@ -133,18 +133,63 @@ Even after thorough filtering, I still found a couple of images which had undesi
 
 After manually playing around with a few thresholds, I find that around CLIP score of 0.7 ~ 0.8 works well for filtering out undesirable images.
 
+## Models, training, and results
+
+Now, what are the models you can train with this dataset? The dataset can be an execellent benchmark for unconditional image generation.
+I am planning on releasing a larger dataset with various conditioning information such as tags, text, and sketches. But, for now, I have focused on unconditional image generation.
+Most of the models are implemented in [JAX](https://github.com/google/jax) and [Equinox](https://docs.kidger.site/equinox/) for GPU/TPU training. I also maintain a pytorch version of the codebase which leverages [flash attention](https://github.com/HazyResearch/flash-attention) and [accelerate](https://huggingface.co/docs/accelerate/index) library. I plan to open-source the code in the near future.
+I want to thank Google's Tensor Research Compute (TRC) program for providing compute resources for this project.
+
+### ViT-VQGAN
+
+![training](/devlog/images/training.png)
+
+[ViT-VQGAN](https://arxiv.org/abs/2110.04627) is a model which is commonly used to quantize high resolution images into a discrete latent space. This allows us to train image generation models efficiently without losing much quality.
+Below are non-cherry-picked samples from both 256px and 512px models.
+
+![compression](/devlog/images/compression.png)
+
+The top/left images are the original images. The bottom/right images are the reconstructed images from the quantized latents.
+One can observe that higher the compression rate there is a significant loss in quality. For instance, compare 16x16 compression against 32x32. 16x16 compression mostly captures the overall structure of the image but loses finer details in comparison to 32x32 compression.
+
+### MUSE
+
+![muse](/devlog/images/muse.jpg)
+
+Using these quantized latents, one can train a transformer model to iteratively generate images. This is the approach taken by [MASKGIT](https://arxiv.org/abs/2202.04200), [MUSE](https://arxiv.org/abs/2301.00704), [Paella](https://github.com/dome272/Paella), and [MAGE](https://arxiv.org/abs/2211.09117).
+Above figure (taken from MUSE paper), provides a schematic overview of the model.
+
+![muse](/devlog/images/muse.png)
+
+By leverging ViT-VQGAN 16x16 models, I was able to train a relatively small (~300M parameter) MUSE model at 256px resolution on TPUv3-8 hardware.
+The generation results are certainly not Stable Diffusion level, but I was glad to see that I was able to reproduce the results from the paper. I plan to scale up the experiments using much larger models.
+
+### Stylegan
+
+![stylegan](/devlog/images/stylegan.png)
+
+Despite the popularity of Diffusion models, I've been a long supporter of GANs. It still has a lot of benefits over diffusion models such as faster sampling, lightning speed training time, and controllable latent space.
+Above are trained models from custom Stylegan implementation that I wrote a couple of years ago. I may try to reproduce results from [GigaGAN](https://mingukkang.github.io/GigaGAN/) paper to explore this direction.
+
+### Diffusion models
+
+![diffusion](/devlog/images/edm.png)
+
+For diffusion models, I've implemented methods from [EDM](https://arxiv.org/abs/2206.00364) paper to generate images on 64x64 resolution. As a transfomer heretic, I've used a ViT backbone for training the diffusion model.
+Above are a few samples from the model. Certinaly, the quality is not as good as I want it to be. I plan to revise the implementation to improve the sampling quality.
+
 ## Next steps
 
 The obvious next step is to extend the dataset to full illustrations. To the best of my knowledge many teams and companies (NovelAI / Waifu Diffusion) use Danbooru dataset for trianing diffusion models.
 I've gotten decent results using the current dataset, but I want to extend the data to incoporate full illustrations. I've already done basic cleaning/filtering/processing for the full illustrations, but I need to perform deduplication and CLIP filtering.
 I plan to release this dataset in the near future. But, here are a few ideas that I have in mind for the full illustration dataset.
 
-- Extract image text embeddings from CLIP/LLMs/SSL models
+- Extract image text embeddings from CLIP/LLM/SSL models
 - Ensure high quality images using Pixiv dataset as anchor
 - Figure out cropping and padding strategy
 - Translate Danbooru tags into natural text (OpenAI API)
 - Extract lines, depthmap, skeletons for ControlNet like training
 
-## Acknowledgements
+## Closing words
 
-Again, I would like to thank Gwern, hysts, and nagadomi for their amazing work and contributions to the community.
+Again, I would like to thank Gwern, hysts, and nagadomi for their amazing work and contributions to the community. I hope this dataset will be useful for future anime generation research.
