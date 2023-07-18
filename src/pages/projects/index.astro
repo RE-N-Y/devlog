@@ -9,6 +9,29 @@ import laptop from "@/src/icons/laptop.svg?raw"
 
 <Page>
 	<Card class="center">
+		<h2>ArXiv Vectors</h2>
+		<div class="center m-4 rounded-lg bg-white p-4">
+			<Image src="/devlog/arxiv.png" width={3132} aspectRatio={3132 / 1738} alt="arxiv vectors" format="png" />
+			<p>A sane way to search papers on ArXiv</p>
+		</div>
+		<Divider />
+		<div class="flex gap-x-12">
+			<div>
+				<Fragment set:html={laptop} />
+				<h3 class="m-0"><a href="https://arxiv.fly.dev">Demo</a></h3>
+				<span>Built with Svelte</span>
+			</div>
+		</div>
+		<p class="p-4">
+			Frankly, there are a lot of CS/ML papers on arXiv. Perhaps too much. There are projects such as arXiv sanity which tries
+			to alleviate this issue, but with arrivial of vector databases and high-quality LLM embeddings, I thought it'd be fun to
+			quickly build a search engine for arXiv papers. Suprisingly it only costs $6 to embed all CS/ML abstracts from arXiv using
+			OpenAI embedding service. I've used pinecone for vector database, Svelte for building the application, and fly.io for
+			hosting.
+		</p>
+	</Card>
+
+	<Card class="center">
 		<h2>Lenia</h2>
 		<div class="center m-4 rounded-lg bg-white p-4">
 			<video class="aspect-square rounded-lg" height={512} width={512} src="/devlog/lenia.webm" autoplay loop></video>
@@ -18,16 +41,15 @@ import laptop from "@/src/icons/laptop.svg?raw"
 		<div class="flex gap-x-12">
 			<div>
 				<Fragment set:html={laptop} />
-				<h3 class="m-0"><a href="https://lenia.vercel.app/">Demo</a></h3>
+				<h3 class="m-0"><a href="https://lenia.netlify.dev/">Demo</a></h3>
 				<span>Built with Svelte</span>
 			</div>
 		</div>
 		<p class="p-4">
-			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper
-			and a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub.
-			The original lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made
-			a few adjustments to address these problems. Initial implementation was written in JAX. The web version was made using
-			tensorflow.js and SvelteKit.
+			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
+			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
+			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
+			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
 		</p>
 	</Card>
 	<Card class="center">
@@ -45,14 +67,14 @@ import laptop from "@/src/icons/laptop.svg?raw"
 			</div>
 		</div>
 		<p>
-			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for
-			image generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
+			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for image
+			generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
 				href="https://gwern.net/">Gwern</a
-			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a
-			clean, hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I
-			also write a technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x,
-			Real-ESRGAN implementations in JAX. I also maintain it's pytorch counterparts. I plan to release the code and
-			additional datasets in the future.
+			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a clean,
+			hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I also write a
+			technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x, Real-ESRGAN
+			implementations in JAX. I also maintain it's pytorch counterparts. I plan to release the code and additional datasets in
+			the future.
 		</p>
 	</Card>
 </Page>
