@@ -1,0 +1,27 @@
+title: "Using AI to measure Parkinson’s disease severity at home"
+authors:
+  - name: "Md. Saiful Islam"
+    order: 1
+  - name: "Wasifur Rahman"
+    order: 2
+  - name: "Abdelrahman Abdelkader"
+    order: 3
+  - name: "Sangwu Lee"
+    order: 4
+    me: true
+  - name: "Phillip T. Yang"
+    order: 5
+  - name: "Jennifer Lynn Purks"
+    order: 6
+  - name: "Jamie Lynn Adams"
+    order: 7
+  - name: "Ruth B. Schneider"
+    order: 8
+  - name: "Earl Ray Dorsey"
+    order: 9
+  - name: "Ehsan Hoque"
+    order: 10
+link: "https://www.nature.com/articles/s41746-023-00905-9"
+abstract: "We present an artificial intelligence (AI) system to remotely assess the motor performance of individuals with Parkinson’s disease (PD). In our study, 250 global participants performed a standardized motor task involving finger-tapping in front of a webcam. To establish the severity of Parkinsonian symptoms based on the finger-tapping task, three expert neurologists independently rated the recorded videos on a scale of 0–4, following the Movement Disorder Society Unified Parkinson’s Disease Rating Scale (MDS-UPDRS). The inter-rater reliability was excellent, with an intra-class correlation coefficient (ICC) of 0.88. We developed computer algorithms to obtain objective measurements that align with the MDS-UPDRS guideline and are strongly correlated with the neurologists’ ratings. Our machine learning model trained on these measures outperformed two MDS-UPDRS certified raters, with a mean absolute error (MAE) of 0.58 points compared to the raters’ average MAE of 0.83 points. However, the model performed slightly worse than the expert neurologists (0.53 MAE). The methodology can be replicated for similar motor tasks, providing the possibility of evaluating individuals with PD and other movement disorders remotely, objectively, and in areas with limited access to neurological care."
+publisher: "Nature npj Digital Medicine"
+pubDate: 2023-08-23

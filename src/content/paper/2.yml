@@ -1,0 +1,51 @@
+title: "Detecting Parkinson Disease Using a Web-Based Speech Task"
+authors:
+  - name: "Wasifur Rahman"
+    order: 1
+  - name: "Sangwu Lee"
+    order: 1
+    me: true
+  - name: "Md Saiful Islam"
+    order: 2
+  - name: "Victor Anthony"
+    order: 3
+  - name: "Harshil Ratnu"
+    order: 4
+  - name: "Mohammad Rafayet Ali"
+    order: 5
+  - name: "Abdullah Al Mamun"
+    order: 6
+  - name: "Ellen Wagner"
+    order: 7
+  - name: "Stella Jensen-Roberts"
+    order: 8
+  - name: "Emma Waddell"
+    order: 9
+  - name: "Taylor Myers"
+    order: 10
+  - name: "Meghan Pawlik"
+    order: 11
+  - name: "Julia Soto"
+    order: 12
+  - name: "Madeleine Coffey"
+    order: 13
+  - name: "Aayush Sarkar"
+    order: 14
+  - name: "Ruth Schneider"
+    order: 15
+  - name: "Christopher Tarolli"
+    order: 16
+  - name: "Karlo Lizarraga"
+    order: 17
+  - name: "Jamie Adams"
+    order: 18
+  - name: "Max A Little"
+    order: 19
+  - name: "E Ray Dorsey"
+    order: 20
+  - name: "Ehsan Hoque"
+    order: 21
+link: "https://www.jmir.org/2021/10/e26305"
+abstract: "Access to neurological care for Parkinson disease (PD) is a rare privilege for millions of people worldwide, especially in resource-limited countries. In 2013, there were just 1200 neurologists in India for a population of 1.3 billion people; in Africa, the average population per neurologist exceeds 3.3 million people. In contrast, 60,000 people receive a diagnosis of PD every year in the United States alone, and similar patterns of rising PD cases can be seen worldwide. In this paper, we propose a web-based framework that can help anyone anywhere around the world record a short speech task and analyze the recorded data to screen for PD."
+publisher: "JMIR"
+pubDate: 2021-00-00

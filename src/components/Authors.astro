@@ -1,0 +1,35 @@
+---
+import clsx from "clsx"
+
+interface Author {
+	name: string
+	order: number
+	me?: boolean
+}
+
+const _class = Astro.props.class
+const props = Astro.props as { data: Author[]; head: number; tail: number }
+
+const authors = props.data.sort((a, b) => a.order - b.order)
+const equalContributors = authors.map((author, idx) => {
+	const next = authors[idx + 1]
+	const last = authors[idx - 1]
+	return (next && author.order === next.order) || (last && author.order === last.order)
+})
+
+const hasEqualContributors = equalContributors.reduce((p, n) => p || n)
+---
+
+<div class="flex">
+	<span class="grow space-x-3">
+		{
+			authors.map((author, idx) => (
+				<span class={clsx(author.me ? "font-bold" : "opacity-70")}>
+					{author.name}
+					{equalContributors[idx] && "*"}
+				</span>
+			))
+		}
+	</span>
+</div>
+{hasEqualContributors && <span>* denotes equal contribution </span>}

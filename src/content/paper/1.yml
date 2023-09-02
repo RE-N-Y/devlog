@@ -1,0 +1,22 @@
+title: "Humor Knowledge Enriched Transformer for Understanding Multimodal Humor"
+authors:
+  - name: "Md Kamrul Hasan"
+    order: 1
+  - name: "Sangwu Lee"
+    order: 2
+    me: true
+  - name: "Wasifur Rahman"
+    order: 3
+  - name: "Amir Zadeh"
+    order: 4
+  - name: "Rada Mihalcea"
+    order: 5
+  - name: "Louis-Philippe Morency"
+    order: 6
+  - name: "Ehsan Hoque"
+    order: 7
+link: "https://ojs.aaai.org/index.php/AAAI/article/view/17534"
+abstract: "Recognizing humor from a video utterance requires understanding the verbal and non-verbal components as well as incorporating the appropriate context and external knowledge. In this paper, we propose Humor Knowledge enriched Transformer (HKT) that can capture the gist of a multimodal humorous expression by integrating the preceding context and external knowledge. We incorporate humor centric external knowledge into the model by capturing the ambiguity and sentiment present in the language. We encode all the language, acoustic, vision, and humor centric features separately using Transformer based encoders, followed by a cross attention layer to exchange information among them. Our model achieves 77.36% and 79.41% accuracy in humorous punchline detection on UR-FUNNY and MUStaRD datasets - achieving a new state-of-the-art on both datasets with the margin of 4.93% and 2.94% respectively. Furthermore, we demonstrate that our model can capture interpretable, humor-inducing patterns from all modalities."
+github: "https://github.com/matalvepu/HKT"
+publisher: "AAAI"
+pubDate: 2021-00-00

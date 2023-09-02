@@ -18,4 +18,22 @@ const rambling = defineCollection({
 	})
 })
 
-export const collections = { rambling }
+const paper = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		link: z.string(),
+		authors: z.array(
+			z.object({
+				name: z.string(),
+				order: z.number(),
+				me: z.boolean().optional()
+			})
+		),
+		abstract: z.string(),
+		publisher: z.string(),
+		pubDate: z.date(),
+		github: z.string().optional()
+	})
+})
+
+export const collections = { rambling, paper }
