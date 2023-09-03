@@ -19,6 +19,7 @@ const rambling = defineCollection({
 })
 
 const paper = defineCollection({
+	type: "data",
 	schema: z.object({
 		title: z.string(),
 		link: z.string(),
