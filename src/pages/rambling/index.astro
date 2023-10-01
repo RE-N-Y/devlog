@@ -4,7 +4,7 @@ import FormattedDate from "../../components/FormattedDate.astro"
 import Page from "@/src/layouts/Page.astro"
 import { Image } from "astro:assets"
 
-const posts = (await getCollection("rambling")).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
+const posts = (await getCollection("rambling")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 ---
 
 <Page>
@@ -18,9 +18,7 @@ const posts = (await getCollection("rambling")).sort((a, b) => a.data.pubDate.va
 							<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
 						</h1>
 						<p class="mb-4">{post.data.description}</p>
-						{post.data.heroImage && (
-							<Image src={post.data.heroImage} class="w-full" width={768} height={256} alt="hero" />
-						)}
+						{post.data.heroImage && <Image src={post.data.heroImage} class="w-full" width={768} height={256} alt="hero" />}
 					</>
 				))
 			}

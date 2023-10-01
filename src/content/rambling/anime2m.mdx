@@ -7,27 +7,26 @@ heroImage: "/devlog/images/animefaces2m.png"
 
 ## Overview
 
+🔗 [Dataset](https://app.activeloop.ai/reny/animefaces) -
+📃 [EDM](https://arxiv.org/abs/2206.00364) -
+📃 [ViT-VQGAN](https://arxiv.org/abs/2110.04627) -
+📃 [MUSE](https://arxiv.org/abs/2301.00704) -
+📃 [MASKGIT](https://arxiv.org/abs/2202.04200) -
+📃 [StyleGAN](https://arxiv.org/abs/1912.04958) -
+💻 [JAX](https://github.com/google/jax) -
+💻 [Equinox](https://docs.kidger.site/equinox/)
+
+![animefaces2m](/devlog/images/activeloop/animefaces.png)
+
 Over the recent years, there have been multiple datasets in anime illustration generation space.
-Most of them are small-scale, and the largest one is [Danbooru dataset](https://gwern.net/danbooru2021) with ~5M images.
-Gwern has put a lot of effort into cleaning and annotating the dataset. He also created a subset of 512px portrait images.
-The only issue is that the dataset only contains 300K images and many images contain black frames around the image to ensure 512px size.
-Another good exisitng dataset is 90K images from [safebooru](https://www.kaggle.com/datasets/scribbless/another-anime-face-dataset) on Kaggle.
-The dataset quality is execellent, but lacks in size. Pixiv is a good source of anime illustrations.
-Steven Evan was kind enough to share his [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-of-pixiv-top-daily-illustration-2020) on Kaggle.
+The largest one is [Danbooru dataset](https://gwern.net/danbooru2021) with ~5M images. Gwern (creator of the dataset) has put a lot of effort into cleaning and annotating the dataset. The original dataset only contains full illustrations, so he also created a subset of 512px portrait images focusing on faces.
+The only issue is that the dataset only contains 300K images and many images contain black padding around the image to ensure 512px size.
+Another good existing dataset is 90K images from [safebooru dataset](https://www.kaggle.com/datasets/scribbless/another-anime-face-dataset) and
+Steven Evan's [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-of-pixiv-top-daily-illustration-2020) both hosted on Kaggle.
 The dataset consists of top ranking pixiv images from 2018 ~ 2020. However, the faces dataset suffers from low resolution and the faces are too tightly cropped for my taste.
-To address these issues, I decided to create a large-scale animefaces dataset combining all three sources.
+To address these issues, I decided to create a large-scale animefaces dataset combining all three sources with a focus on maintaining high-quality. Below is a brief overview of how the dataset was created.
 
 ![pipeline](/devlog/images/animefaces2m.png)
-
-## Download
-
-### Activeloop
-
-[Access Link](https://app.activeloop.ai/reny/animefaces)
-
-### Kaggle
-
-(coming soon)
 
 ## Data cleaning, filtering, processing, and all that jazz
 
@@ -73,7 +72,7 @@ print(similar_tags)
 ```
 
 For readers who are not familiar with TF-IDF, the key intuition behind TF-IDF come in two parts. Firstly, if two tags co-occur frequently, they are likely to be similar. Secondly, if a tag appears in many posts, it is likely to be less relevant.
-For instance, the tags "comic" and "4-koma" are likely to co-occur frequently. However, the tag "comic" and "1girl" are also likely to co-occur frequently becuase "1girl" is a very common tag.
+For instance, the tags "comic" and "4-koma" are likely to co-occur frequently. However, the tag "comic" and "solo" are also likely to co-occur frequently becuase "solo" is a very common tag.
 Therefore, we need to weigh the co-occurance by the inverse of the number of posts that contain the tag. This is exactly what TF-IDF does.
 It's easy to see that the above algorithm runs in $O(N^2)$ time, where $N$ is the number of tags. For that reason, I decided to only use top 1024 frequent tags.
 
@@ -81,10 +80,10 @@ It's easy to see that the above algorithm runs in $O(N^2)$ time, where $N$ is th
 
 Even after removing NSFW images and other problematic images, there are still many images that are not suitable for training.
 
-- Images that are too small
-- Images that are too large
-- Files that are not images (gif/mp4)
-- Images are in both .jpg and .png format
+- Images that are too small `< 10KB`
+- Images that are too large `> 100MB`
+- Files that are not images (i.e. `gif` and `mp4` files)
+- Images are in both `.jpg` and `.png` format
 
 The steps for filtering and processing these images were somewhat obvious. In fact, I have to credit Gwern here again for his detailed [blog post](https://gwern.net/face#data-preparation).
 
@@ -97,7 +96,7 @@ The steps for filtering and processing these images were somewhat obvious. In fa
 
 The next step is to detect faces in the images. For the longest time, [nagadomi's anime face detector](https://github.com/nagadomi/lbpcascade_animeface) has been a standard tool for anime face detection.
 For the most part, the detector works well on most cases and runs quite fast. But, I've noticed that the detector fails to detect faces in some images. For that reason, I've decided to use [hysts's YOLOv3 anime face detector](https://github.com/hysts/anime-face-detector)
-which not only yields better results but also provides facial landmarks. In this step, it's wise to filter out images containing multiple faces using "1girl" tag, but I was confident enough about the face detector that I skipped this step. After filtering out the faces, I disregard faces whose resolution is less than 64px. In rare cases where the face is larger than 512px, I rescale it down to 512px as well.
+which not only yields better results but also provides facial landmarks. In this step, it's wise to filter out images containing multiple faces using "solo" tag, but I was confident enough about the face detector that I skipped this step. After filtering out the faces, I disregard faces whose resolution is less than 64px. In rare cases where the face is larger than 512px, I rescale it down to 512px as well.
 
 ### Upscaling and resizing
 
@@ -138,7 +137,6 @@ After manually playing around with a few thresholds, I find that around CLIP sco
 Now, what are the models you can train with this dataset? The dataset can be an execellent benchmark for unconditional image generation.
 I am planning on releasing a larger dataset with various conditioning information such as tags, text, and sketches. But, for now, I have focused on unconditional image generation.
 Most of the models are implemented in [JAX](https://github.com/google/jax) and [Equinox](https://docs.kidger.site/equinox/) for GPU/TPU training. I also maintain a pytorch version of the codebase which leverages [flash attention](https://github.com/HazyResearch/flash-attention) and [accelerate](https://huggingface.co/docs/accelerate/index) library. I plan to open-source the code in the near future.
-I want to thank Google's Tensor Research Compute (TRC) program for providing compute resources for this project.
 
 ### ViT-VQGAN
 
@@ -150,26 +148,36 @@ Below are non-cherry-picked samples from both 256px and 512px models.
 ![compression](/devlog/images/compression.png)
 
 The top/left images are the original images. The bottom/right images are the reconstructed images from the quantized latents.
-One can observe that higher the compression rate there is a significant loss in quality. For instance, compare 16x16 compression against 32x32. 16x16 compression mostly captures the overall structure of the image but loses finer details in comparison to 32x32 compression.
+One can observe that higher the compression rate causes a significant loss in quality. For instance, compare 16x16 compression against 32x32. 16x16 compression mostly captures the overall structure of the image but loses finer details in comparison to 32x32 compression.
 
 ### MUSE
 
 ![muse](/devlog/images/muse.jpg)
 
-Using these quantized latents, one can train a transformer model to iteratively generate images. This is the approach taken by [MASKGIT](https://arxiv.org/abs/2202.04200), [MUSE](https://arxiv.org/abs/2301.00704), [Paella](https://github.com/dome272/Paella), and [MAGE](https://arxiv.org/abs/2211.09117).
+Using these quantized latents, one can train a transformer model to iteratively "demask" tokens to generate images. This is the approach taken by [MASKGIT](https://arxiv.org/abs/2202.04200), [MUSE](https://arxiv.org/abs/2301.00704), [Paella](https://github.com/dome272/Paella), and [MAGE](https://arxiv.org/abs/2211.09117).
 Above figure (taken from MUSE paper) provides a schematic overview of the model.
 
 ![muse](/devlog/images/muse.png)
 
-By leverging ViT-VQGAN 16x16 models, I was able to train a relatively small (~300M parameter) MUSE model at 256px resolution on TPUv3-8 hardware.
+By leverging ViT-VQGAN 16x16 models, I was able to train a relatively small (around 100M ~ 300M parameter) 1st stage MUSE model at 256px resolution on TPUv3-8 hardware.
 The generation results are certainly not Stable Diffusion level, but I was glad to see that I was able to reproduce the results from the paper. I plan to scale up the experiments using much larger models.
 
 ### Stylegan
 
 ![stylegan](/devlog/images/stylegan.png)
 
+<div className="center opacity-85 p-2">
+	<p>Non cherry picked samples from my StyleGANv2 implementation</p>
+</div>
+
 Despite the popularity of Diffusion models, I've been a long supporter of GANs. It still has a lot of benefits over diffusion models such as faster sampling, lightning speed training time, and controllable latent space.
-Above are trained models from custom Stylegan implementation that I wrote a couple of years ago. I may try to reproduce results from [GigaGAN](https://mingukkang.github.io/GigaGAN/) paper to explore this direction.
+Above are trained models from custom Stylegan implementation that I wrote a couple of years ago. I may try to reproduce results from [GigaGAN](https://mingukkang.github.io/GigaGAN/) paper to explore this direction. Here are a few more cherry picked samples from the model.
+
+![stylegan](/devlog/images/swinstyle.png)
+
+<div className="center opacity-85 p-2">
+	<p>Cherry picked samples from [Styleswin](https://github.com/microsoft/StyleSwin) model</p>
+</div>
 
 ### Diffusion models
 
@@ -180,7 +188,7 @@ Above are a few samples from the model. Certinaly, the quality is not as good as
 
 ## Next steps
 
-The obvious next step is to extend the dataset to full illustrations. To the best of my knowledge many teams and companies (NovelAI / Waifu Diffusion) use Danbooru dataset for trianing diffusion models.
+The obvious next step is to extend the dataset to full illustrations. To the best of my knowledge many teams and companies (NovelAI / Waifu Diffusion) use Danbooru dataset for training diffusion models. I wanted to provide a dataset to the open-source and research community which makes image generation on anime dataset even more accessible.
 I've gotten decent results using the current dataset, but I want to extend the data to incoporate full illustrations. I've already done basic cleaning/filtering/processing for the full illustrations, but I need to perform deduplication and CLIP filtering.
 I plan to release this dataset in the near future. But, here are a few ideas that I have in mind for the full illustration dataset.
 
@@ -192,4 +200,4 @@ I plan to release this dataset in the near future. But, here are a few ideas tha
 
 ## Closing words
 
-Again, I would like to thank Gwern, hysts, and nagadomi for their amazing work and contributions to the community. I hope this dataset will be useful for future anime generation research.
+Again, I would like to thank Gwern, hysts, and nagadomi for their amazing work and contributions to the community. I would also like to thank Activeloop team for giving me the oppurtunity to share my work. Moreover, I want to thank Google's Tensor Research Compute (TRC) program for providing compute resources for this project. I hope this dataset will be useful for future anime generation research.
