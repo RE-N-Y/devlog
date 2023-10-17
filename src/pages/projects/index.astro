@@ -9,6 +9,27 @@ import laptop from "@/src/icons/laptop.svg?raw"
 
 <Page>
 	<Card class="center">
+		<h2>Lenia</h2>
+		<div class="center m-4 rounded-lg bg-white p-4">
+			<video class="aspect-square rounded-lg" height={512} width={512} src="/devlog/lenia.webm" autoplay loop></video>
+			<p>Running Neural Celluar Auotmata on the web</p>
+		</div>
+		<Divider />
+		<div class="flex gap-x-12">
+			<div>
+				<Fragment set:html={laptop} />
+				<h3 class="m-0"><a href="https://lenia.netlify.app/">Demo</a></h3>
+				<span>Built with Svelte</span>
+			</div>
+		</div>
+		<p class="p-4">
+			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
+			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
+			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
+			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
+		</p>
+	</Card>
+	<Card class="center">
 		<h2>ArXiv Vectors</h2>
 		<div class="center m-4 rounded-lg bg-white p-4">
 			<Image src="/devlog/arxiv.png" width={3132} aspectRatio={3132 / 1738} alt="arxiv vectors" format="png" />
@@ -28,28 +49,6 @@ import laptop from "@/src/icons/laptop.svg?raw"
 			quickly build a search engine for arXiv papers. Suprisingly it only costs $6 to embed all CS/ML abstracts from arXiv using
 			OpenAI embedding service. I've used pinecone for vector database, Svelte for building the application, and fly.io for
 			hosting.
-		</p>
-	</Card>
-
-	<Card class="center">
-		<h2>Lenia</h2>
-		<div class="center m-4 rounded-lg bg-white p-4">
-			<video class="aspect-square rounded-lg" height={512} width={512} src="/devlog/lenia.webm" autoplay loop></video>
-			<p>Running Neural Celluar Auotmata on the web</p>
-		</div>
-		<Divider />
-		<div class="flex gap-x-12">
-			<div>
-				<Fragment set:html={laptop} />
-				<h3 class="m-0"><a href="https://lenia.netlify.app/">Demo</a></h3>
-				<span>Built with Svelte</span>
-			</div>
-		</div>
-		<p class="p-4">
-			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
-			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
-			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
-			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
 		</p>
 	</Card>
 	<Card class="center">
