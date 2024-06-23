@@ -18,7 +18,7 @@ const posts = (await getCollection("rambling")).sort((a, b) => b.data.pubDate.va
 							<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
 						</h1>
 						<p class="mb-4">{post.data.description}</p>
-						{post.data.heroImage && <Image src={post.data.heroImage} class="w-full" width={768} height={256} alt="hero" />}
+						{post.data.heroImage && <Image src={post.data.heroImage} class="w-full" alt="hero" />}
 					</>
 				))
 			}

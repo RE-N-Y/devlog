@@ -1,0 +1,19 @@
+title: "A User-Centered Framework to Empower People with Parkinson's Disease"
+authors:
+  - name: "Wasifur Rahman"
+    order: 1
+  - name: "Abdelrahman Abdelkader"
+    order: 2
+  - name: "Sangwu Lee"
+    order: 3
+    me: true
+  - name: "Philip Yang"
+    order: 4
+  - name: "..."
+    order: 5
+  - name: "Ehsan Hoque"
+    order: 6
+link: "https://dl.acm.org/doi/abs/10.1145/3631430"
+abstract: "We present a user-centric validation of a teleneurology platform, assessing its effectiveness in conveying screening information, facilitating user queries, and offering resources to enhance user empowerment. This validation process is implemented in the setting of Parkinson's disease (PD), in collaboration with a neurology department of a major medical center in the USA. Our intention is that with this platform, anyone globally with a webcam and microphone-equipped computer can carry out a series of speech, motor, and facial mimicry tasks. Our validation method demonstrates to users a mock PD risk assessment and provides access to relevant resources, including a chatbot driven by GPT, locations of local neurologists, and actionable and scientifically-backed PD prevention and management recommendations. We share findings from 91 participants (48 with PD, 43 without) aimed at evaluating the user experience and collecting feedback. Our framework was rated positively by 80.85% (standard deviation ± 8.92%) of the participants, and it achieved an above-average 70.42 (standard deviation ± 13.85) System-Usability-Scale (SUS) score. We also conducted a thematic analysis of open-ended feedback to further inform our future work. When given the option to ask any questions to the chatbot, participants typically asked for information about neurologists, screening results, and the community support group. We also provide a roadmap of how the knowledge generated in this paper can be generalized to screening frameworks for other diseases through designing appropriate recording environments, appropriate tasks, and tailored user-interfaces."
+publisher: "IMWUT"
+pubDate: 2024-01-12

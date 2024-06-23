@@ -9,9 +9,9 @@ authors:
     order: 2
   - name: "Sooyoung Park"
     order: 3
-  - name: "Eshan Hoque"
+  - name: "Ehsan Hoque"
     order: 4
-link: "https://parkkit.fly.dev/"
+link: "https://parktest.net/demo"
 abstract: "We present a web-based framework to screen for Parkinson’s disease (PD) by allowing users to perform neurological tests in their homes. Our web framework guides the users to complete three tasks involving speech, facial expression, and finger movements. The task videos are analyzed to classify whether the users show signs of PD. We present the results in an easy-to-understand manner, along with personalized resources to further access to treatment and care. Our framework is accessible by any major web browser, improving global access to neurological care."
 publisher: "ACII Demo Track"
 pubDate: 2023-09-00

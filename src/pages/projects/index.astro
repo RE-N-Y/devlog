@@ -2,9 +2,11 @@
 import Page from "@/src/layouts/Page.astro"
 import Card from "@/src/components/Card.astro"
 import Divider from "@/src/components/Divider.astro"
-import { Image } from "@astrojs/image/components"
+import { Image } from 'astro:assets';
 import dataset from "@/src/icons/dataset.svg?raw"
 import laptop from "@/src/icons/laptop.svg?raw"
+import arXivImage from "@/src/media/arxiv.png"
+import animefacesImage from "@/src/media/animefaces.svg"
 ---
 
 <Page>
@@ -32,7 +34,7 @@ import laptop from "@/src/icons/laptop.svg?raw"
 	<Card class="center">
 		<h2>ArXiv Vectors</h2>
 		<div class="center m-4 rounded-lg bg-white p-4">
-			<Image src="/devlog/arxiv.png" width={3132} aspectRatio={3132 / 1738} alt="arxiv vectors" format="png" />
+			<Image src={arXivImage} alt="arxiv vectors" />
 			<p>A sane way to search papers on ArXiv</p>
 		</div>
 		<Divider />
@@ -54,7 +56,7 @@ import laptop from "@/src/icons/laptop.svg?raw"
 	<Card class="center">
 		<h2>Animefaces</h2>
 		<div class="center m-4 rounded-lg bg-white p-4">
-			<Image src="/devlog/animefaces.svg" width={512} aspectRatio={1} format="svg" alt="animefaces" />
+			<Image src={animefacesImage} height={512} width={512}  alt="animefaces" />
 			<p class="text-gray-500 p-2">Samples from Stylegan implementation</p>
 		</div>
 		<Divider />

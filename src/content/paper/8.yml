@@ -1,0 +1,17 @@
+title: "Self-Imagine: Effective Unimodal Reasoning with Multimodal Models using Self-Imagination"
+authors:
+  - name: "Syeda Nahida Akter"
+    order: 1
+  - name: "Aman Madaan"
+    order: 2
+  - name: "Sangwu Lee"
+    order: 3
+    me: true
+  - name: "Yiming Yang"
+    order: 4
+  - name: "Eric Nyberg"
+    order: 5
+link: "https://arxiv.org/pdf/2401.08025"
+abstract: "The potential of Vision-Language Models (VLMs) often remains underutilized in handling complex text-based problems, particularly when these problems could benefit from visual representation. Resonating with humans' ability to solve complex text-based problems by (1) creating a visual diagram from the problem and (2) deducing what steps they need to take to solve it, we propose Self-Imagine. We leverage a single Vision-Language Model (VLM) to generate a structured representation of the question using HTML, then render the HTML as an image, and finally use the same VLM to answer the question using both the question and the image. Our approach does not require any additional training data or training. We evaluate our approach on three mathematics tasks and nine general-purpose reasoning tasks using state-of-the-art (LLAVA-1.5 and GEMINI PRO) VLMs. Our approach boosts the performance of LLAVA-1.5 and GEMINI PRO on all math tasks (on average GSM8K: +3.1%; ASDIV: +3.2%; SVAMP: +6.9%) and the majority of the general-purpose reasoning tasks by 3.2% to 6.0% on average."
+publisher: "ICLR Workshop on LLM Agents"
+pubDate: 2024-01-16

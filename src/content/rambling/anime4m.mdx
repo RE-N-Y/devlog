@@ -2,12 +2,12 @@
 title: "Bigbooru 4M dataset"
 description: "Developing a large scale multimodal dataset of anime illustrations"
 pubDate: "October 1, 2023"
-heroImage: "/devlog/images/bigbooru.png"
+heroImage: "./images/anime4m/bigbooru.png"
 ---
 
 ## 🔍 Overview
 
-![Bigbooru](/devlog/images/bigbooru.png)
+![Bigbooru](./images/anime4m/bigbooru.png)
 
 <div className="center p-2 text-xl opacity-80">Preview of the Bigbooru dataset</div>
 
@@ -19,7 +19,7 @@ medium, artist, style, nsfw rating, etc. However, this makes the dataset only su
 For this reason, I've decided to create a new dataset **Bigbooru**. A large scale multimodal dataset of anime illustration
 which contains **3,614,514** images with 🥁🥁🥁
 
-<div className="p-2">![modalities](/devlog/images/modalities.png)</div>
+<div className="p-2">![modalities](./images/anime4m/modalities.png)</div>
 <div className="center p-2 text-xl opacity-80">Modalities supported in Bigbooru dataset</div>
 
 Now, let's go over each modality and how I've collected, cleaned, and preprocessed them.
@@ -59,7 +59,7 @@ I've decided to go with **depth map** and **sketches** as the additional modalit
 For extrating depth map, I've used a segmentation / depth estimation model developed by [SkyTNT](https://github.com/SkyTNT/anime-segmentation) which provides quite accurate depth maps for anime illustrations.
 
 <div className="center p-2">
-	<div className="w-2/3">![anime2depth](/devlog/images/anime2depth.jpg)</div>
+	<div className="w-2/3">![anime2depth](./images/anime4m/anime2depth.jpg)</div>
 	<div className="p-2 text-xl opacity-80">Anime2Depth model</div>
 </div>
 
@@ -75,7 +75,7 @@ However, these sketch extraction models struggle with **dark** images. My hypoth
 Especially for Anime2Sketch, the model tends to generate grid artifacts in dark regions as shwon below.
 
 <div className="center p-2">
-	<div className="w-3/4">![artifacts](/devlog/images/artifacts.png)</div>
+	<div className="w-3/4">![artifacts](./images/anime4m/artifacts.png)</div>
 	<div className="p-2 text-xl opacity-80">Grid artifacts for dark images</div>
 </div>
 
@@ -85,7 +85,7 @@ The training setup is quite simple. The modified model is loaded with pretrained
 Training was done on a single A100 GPU for a single epoch on Bigbooru dataset. The training took less than a day and the results were quite satisfactory.
 
 <div className="center p-2">
-	<div className="w-3/4">![artifacts](/devlog/images/deconv.png)</div>
+	<div className="w-3/4">![artifacts](./images/anime4m/deconv.png)</div>
 	<div className="p-2 text-xl opacity-80">Improved version of Anime2Sketch</div>
 </div>
 
@@ -98,13 +98,6 @@ These contributions are currently integrated into the [Anime2Sketch](https://git
 I've also made a few minor improvements to the quality of the tags. There are also a few "junk" tags that are not very useful for image generation tasks.
 These tags are abundantly present in "meta" category of tags such as `bad_pixiv_id`, `md5_mismatch`, `commentary_request`, etc.
 As previously mentioned in [Animefaces 2M Dataset](/devlog/rambling/anime2m/), I also maintain a list of "unpreferred" tags such as `manga`, `comic`, `text_only`, `no_humans`, `furry`, etc.
-
-Currently, I'm running LLM's to automatically remove unnecessary and redundant tags. Below is a list of LLMs that I'm currently running on the dataset.
-
-- [x] Falcon 40B - Hallucinates tags and extremely slow to run on current hardware
-- [x] Vicuna 13B - Has tendancy to hallucinate tags
-- [ ] Mistal 7B - **Currently running** ⚙️
-- [ ] Persimmon 8B - **Currently running** ⚙️
 
 In addition to improving tags, penultimate CLIP text embeddings were also extracted for each image using [LAION's ViT-bigG/14 model](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k).
 These embeddings will be further used to train model using CFG on diffusion models.

@@ -16,9 +16,9 @@ const papers = data.sort((a: CollectionEntry<"paper">, b: CollectionEntry<"paper
 			papers.map(({ data }) => {
 				return (
 					<div>
-						<h2>
+						<h3>
 							<a href={data.link}>{data.title}</a>
-						</h2>
+						</h3>
 						<div>
 							<div class="flex">
 								<span class="grow text-xl">
@@ -27,9 +27,8 @@ const papers = data.sort((a: CollectionEntry<"paper">, b: CollectionEntry<"paper
 								<span>{data.github && <a href={data.github}>Code</a>}</span>
 							</div>
 						</div>
-
 						<Authors data={data.authors} head={3} tail={2} />
-						<div class="py-4">
+						<div class="mb-8">
 							<h4 class="text-md font-bold">Abstract</h4>
 							<p>{data.abstract}</p>
 						</div>

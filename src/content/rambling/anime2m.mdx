@@ -2,7 +2,7 @@
 title: "Animefaces 2M dataset"
 description: "Developing a large-scale anime faces dataset."
 pubDate: "June 18, 2023"
-heroImage: "/devlog/images/animefaces2m.png"
+heroImage: "./images/anime2m/animefaces2m.png"
 ---
 
 ## Overview
@@ -16,7 +16,7 @@ heroImage: "/devlog/images/animefaces2m.png"
 💻 [JAX](https://github.com/google/jax) -
 💻 [Equinox](https://docs.kidger.site/equinox/)
 
-![animefaces2m](/devlog/images/activeloop/animefaces.png)
+![animefaces2m](./images/anime2m/activeloop/animefaces.png)
 
 Over the recent years, there have been multiple datasets in anime illustration generation space.
 The largest one is [Danbooru dataset](https://gwern.net/danbooru2021) with ~5M images. Gwern (creator of the dataset) has put a lot of effort into cleaning and annotating the dataset. The original dataset only contains full illustrations, so he also created a subset of 512px portrait images focusing on faces.
@@ -26,7 +26,7 @@ Steven Evan's [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-
 The dataset consists of top ranking pixiv images from 2018 ~ 2020. However, the faces dataset suffers from low resolution and the faces are too tightly cropped for my taste.
 To address these issues, I decided to create a large-scale animefaces dataset combining all three sources with a focus on maintaining high-quality. Below is a brief overview of how the dataset was created.
 
-![pipeline](/devlog/images/animefaces2m.png)
+![pipeline](./images/anime2m/animefaces2m.png)
 
 ## Data cleaning, filtering, processing, and all that jazz
 
@@ -140,31 +140,31 @@ Most of the models are implemented in [JAX](https://github.com/google/jax) and [
 
 ### ViT-VQGAN
 
-![training](/devlog/images/training.png)
+![training](./images/anime2m/training.png)
 
 [ViT-VQGAN](https://arxiv.org/abs/2110.04627) is a model which is commonly used to quantize high resolution images into a discrete latent space. This allows us to train image generation models efficiently without losing much quality.
 Below are non-cherry-picked samples from both 256px and 512px models.
 
-![compression](/devlog/images/compression.png)
+![compression](./images/anime2m/compression.png)
 
 The top/left images are the original images. The bottom/right images are the reconstructed images from the quantized latents.
 One can observe that higher the compression rate causes a significant loss in quality. For instance, compare 16x16 compression against 32x32. 16x16 compression mostly captures the overall structure of the image but loses finer details in comparison to 32x32 compression.
 
 ### MUSE
 
-![muse](/devlog/images/muse.jpg)
+![muse](./images/anime2m/muse.jpg)
 
 Using these quantized latents, one can train a transformer model to iteratively "demask" tokens to generate images. This is the approach taken by [MASKGIT](https://arxiv.org/abs/2202.04200), [MUSE](https://arxiv.org/abs/2301.00704), [Paella](https://github.com/dome272/Paella), and [MAGE](https://arxiv.org/abs/2211.09117).
 Above figure (taken from MUSE paper) provides a schematic overview of the model.
 
-![muse](/devlog/images/muse.png)
+![muse](./images/anime2m/muse.png)
 
 By leverging ViT-VQGAN 16x16 models, I was able to train a relatively small (around 100M ~ 300M parameter) 1st stage MUSE model at 256px resolution on TPUv3-8 hardware.
 The generation results are certainly not Stable Diffusion level, but I was glad to see that I was able to reproduce the results from the paper. I plan to scale up the experiments using much larger models.
 
 ### Stylegan
 
-![stylegan](/devlog/images/stylegan.png)
+![stylegan](./images/anime2m/stylegan.png)
 
 <div className="center opacity-85 p-2">
 	<p>Non cherry picked samples from my StyleGANv2 implementation</p>
@@ -173,7 +173,7 @@ The generation results are certainly not Stable Diffusion level, but I was glad 
 Despite the popularity of Diffusion models, I've been a long supporter of GANs. It still has a lot of benefits over diffusion models such as faster sampling, lightning speed training time, and controllable latent space.
 Above are trained models from custom Stylegan implementation that I wrote a couple of years ago. I may try to reproduce results from [GigaGAN](https://mingukkang.github.io/GigaGAN/) paper to explore this direction. Here are a few more cherry picked samples from the model.
 
-![stylegan](/devlog/images/swinstyle.png)
+![stylegan](./images/anime2m/swinstyle.png)
 
 <div className="center opacity-85 p-2">
 	<p>Cherry picked samples from [Styleswin](https://github.com/microsoft/StyleSwin) model</p>
@@ -181,7 +181,7 @@ Above are trained models from custom Stylegan implementation that I wrote a coup
 
 ### Diffusion models
 
-![diffusion](/devlog/images/edm.png)
+![diffusion](./images/anime2m/edm.png)
 
 For diffusion models, I've implemented methods from [EDM](https://arxiv.org/abs/2206.00364) paper to generate images on 64x64 resolution. As a devoted member of transformers cult, I've used a ViT backbone for training the diffusion model.
 Above are a few samples from the model. Certinaly, the quality is not as good as I want it to be. I plan to revise the implementation to improve the sampling quality.
