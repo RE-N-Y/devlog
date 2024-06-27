@@ -3,3 +3,4 @@
 
 export const SITE_TITLE = "dev.log";
 export const SITE_DESCRIPTION = "A place for peace of mind";
+export const PREVIEW_IMAGE = "/devlog/preview.png";
