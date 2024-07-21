@@ -19,9 +19,13 @@ VQVAE [1] and VQGAN [2] are essential components of training latent diffusion mo
 In this post, I will be sharing a few insights into training VQGAN on the animefaces dataset.
 It's been a while since I've trained VQGAN on the animefaces dataset and there's been many new improvements such as the Mamba backbone [3], FlashAttention [4], and the torch.compile features I haven't had the chance to explore in detail. There are a few structural changes I've made to the VQGAN architecture, but here are some of the key takeaways:
 
+<div className="my-12">
+
 - **Convolution** backbone outperforms **Attention** and **Mamba** backbones.
 - **Bidirectional Mamba** backbone outperforms standard **attention** backbones.
 - Using overlapping patches and extra convolutional layers can help "smooth out" the generated images for Transformer / Mamba backbones.
+
+</div>
 
 <div className="my-12 w-2/3">
 ## Table of contents
