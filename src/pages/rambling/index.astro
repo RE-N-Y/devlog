@@ -12,14 +12,14 @@ const posts = (await getCollection("rambling")).sort((a, b) => b.data.pubDate.va
 		<ul>
 			{
 				posts.map((post) => (
-					<>
+					<div class="mb-12">
 						<FormattedDate date={post.data.pubDate} />
 						<h1 class="mb-2">
 							<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
 						</h1>
 						<p class="mb-4">{post.data.description}</p>
 						{post.data.heroImage && <Image src={post.data.heroImage} class="w-full" alt="hero" />}
-					</>
+					</div>
 				))
 			}
 		</ul>
