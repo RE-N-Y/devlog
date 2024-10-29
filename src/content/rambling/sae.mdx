@@ -14,6 +14,7 @@ heroImage: "./images/sae/sae.png"
     You can access 🔗 [fluxlens here](https://fluxlens.vercel.app) to explore the features of Sparse Autoencoders.
 </div>
 
+<span className="text-sm opacity-80">Note: This is a long-term ongoing research project I will be updating as I make progress. I plan to open source my SAE training code and weights in the coming weeks. I welcome any feedback, suggestions, or collaboration. Please reach out!</span>
 
 ## Preface
 
@@ -27,7 +28,7 @@ We demonstrate that SAEs can be used to decompose model's activation space into 
 Furthermore, to the best of our knowledge, we are the first to show that SAEs trained directly on flow matching models (`flux`).
 This work is accompanied by `fluxlens`, a minimal visualisation tool I've built to explore SAE features and multimodal datasets.
 
-**Note**: This work began early October in collaboration with [krea.ai](www.krea.ai) who've dragged me out of GPU poverty line. The initial exploration and visualisation tool was built on top of krea's internal assets. However, to facilitate SAE open research efforts, I've retrained SAEs on public multimodal dataset (CC3M).
+This work began early October in collaboration with [krea.ai](www.krea.ai) who've dragged me out of GPU poverty line. The initial exploration and visualisation tool was built on top of krea's internal assets. However, to facilitate SAE open research efforts, I've retrained SAEs on public multimodal dataset (CC3M).
 The code for SAE training will be open sourced in the coming weeks.
 
 I'd also like to acknowledge that this work was directly influenced by [Antrhopic's SAE work](https://transformer-circuits.pub/2023/monosemantic-features) and [Transformers Circuit discourse](https://transformer-circuits.pub/).
@@ -315,12 +316,12 @@ However, I was overall happy with the visualisation results and CLIP SAEs that I
     I'm available via [twitter](https://x.com/sleenyre) / [email](mailto:sangwulee2@gmail.com) / ... etc.
 </div>
 
-
-
-
 ## Future directions
 
-Of course, there are a 
+Of course, there are a few unturned stones that I would like to explore in the future:
 
-
-
+- Is there a method to brute force find steering vector instead of training an SAE? This method would allow me to reverse engineer criterion of an ideal steering vector.
+- Can we apply SAEs on VAEs directly?
+- Applying SAEs on alternative image generation architectures such as HART, MAR, and Lumina.
+- Training SAEs on T5-XXL
+- Trying out different locations to sample activations from FLUX.
