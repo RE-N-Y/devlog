@@ -325,3 +325,6 @@ Of course, there are a few unturned stones that I would like to explore in the f
 - Applying SAEs on alternative image generation architectures such as HART, MAR, and Lumina.
 - Training SAEs on T5-XXL
 - Trying out different locations to sample activations from FLUX.
+
+One experimental idea I have is to simply take a few hundred images with a distinct style, sample activations from FLUX, and simply run a SVD/PCA and use the resulting components as steering vectors.
+Obvisouly, there's the task of adding extra UI componetns to `fluxlens` to allow users to steer generations on the sight. Ideally, I should try to make it as feature-complete as possible like [Neuronpedia](https://www.neuronpedia.org/).
