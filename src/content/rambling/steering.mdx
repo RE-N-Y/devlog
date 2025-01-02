@@ -1,14 +1,15 @@
 ---
-title: "Steering flux generations with SigLIP SAE"
+title: "Concept editing with flux SAE"
 description: "Concept editing with SAEs"
 pubDate: "January 2, 2025"
-heroImage: "./images/steering/teaser.png"
+heroImage: "./images/steering/flower.gif"
 ---
 
 import { Image } from "astro:assets"
 
 <div className="my-12 center">
-    ![teaser](./images/steering/teaser.png)
+    ![teaser](./images/steering/hairbun.gif)
+    <p className="opacity-50">Linear interpolation of hairbun vector from $0$ ~ $24$</p>
 </div>
 
 
@@ -20,7 +21,7 @@ While the results and visualisation demonstrated the potential of SAEs, steering
 However, a couple months ago, black forest labs team relased [redux](https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev), a version of flux conditioned on SigLIP vision embeddings.
 
 <div className="center my-8 p-2">
-    ![flux redux](https://lh7-rt.googleusercontent.com/docsz/AD_4nXcO4QZZqolpRS2lTXSqJ8uJcTY9yXwiXhYAypw3d1yIqYnpLUFz4KWw5hUJisrH_nTqMalYQal0iUZPuFv0h6mGmIlq9CGNA-4a6A5tm9TUh5gNs1dmE7js2ayudgF_IN2BPXkrOQ?key=Ult89JQdBB7CX3l5ClfyS9B_)
+    ![flux redux](./images/steering/bread.png)
     <p className="opacity-50"> flux redux allows users to condition the model on an image, allowing users to create variations - [source](https://blackforestlabs.ai/flux-1-tools/)</p>
 </div>
 
@@ -114,6 +115,13 @@ We can actually "clamp" the value of feature vectors to 0, dampening the effect 
 We see that by clamping the hairbun vector, we can make the subject "untie" her hairbun or make white flower less prevalent in the image.
 I've also found that setting the feature vector to negative values were also quite effective in suppressing the concept.
 
+<div className="center my-8 p-2">
+    <div className="md:w-2/3 p-2 center">
+        ![negative](./images/steering/negative.png)
+        <p className="opacity-50"> Suppressing concepts by setting the feature vector to negative values</p>
+    </div>
+</div>
+
 The use case for SAE based concept editing is not limited to manipulating existing concepts. If you find an interesting steering vector in the SAE, you can use these to "introduce new concepts" to the image.
 
 <div className="center my-8 p-2">
@@ -128,6 +136,16 @@ One interesting observation is that due to the fact that so many CC3M images are
 <div className="center my-8 p-2">
     ![getty](./images/steering/getty.png)
     <p className="opacity-50"> Getty images watermark vector</p>
+</div>
+
+Using these features, we can easily compose images with different concepts at the same time.
+
+
+<div className="center my-8 p-2">
+    <div className="md:w-2/3 p-2 center">
+        ![compose](./images/steering/compose.png)
+        <p className="opacity-50"> Composing images with different concepts</p>
+    </div>
 </div>
 
 ## Thoughts on SAE based image editing
