@@ -11,11 +11,11 @@ const papers = data.sort((a: CollectionEntry<"paper">, b: CollectionEntry<"paper
 ---
 
 <Page>
-	<div class="space-y-8">
+	<div class="space-y-12">
 		{
 			papers.map(({ data }) => {
 				return (
-					<div>
+					<div class="space-y-1">
 						<h3>
 							<a href={data.link}>{data.title}</a>
 						</h3>
@@ -28,10 +28,10 @@ const papers = data.sort((a: CollectionEntry<"paper">, b: CollectionEntry<"paper
 							</div>
 						</div>
 						<Authors data={data.authors} head={3} tail={2} />
-						<div class="mb-8">
+						{/* <div class="mb-8">
 							<h4 class="text-md font-bold">Abstract</h4>
 							<p>{data.abstract}</p>
-						</div>
+						</div> */}
 					</div>
 				)
 			})

@@ -13,7 +13,7 @@ import teaser from "./images/vqgan/teaser.png"
 import grid from "./images/vqgan/grid.png"
 import fix from "./images/vqgan/fix.png"
 
-## 🔍 Overview
+## Overview
 
 VQVAE [1] and VQGAN [2] are essential components of training latent diffusion models as well as autoregressive models.
 In this post, I will be sharing a few insights into training VQGAN on the animefaces dataset.
@@ -39,7 +39,7 @@ It's been a while since I've trained VQGAN on the animefaces dataset and there's
 
 </div>
 
-<h2 id="background">📚 Background</h2>
+<h2 id="background">Background</h2>
 
 What is a VQGAN and VQVAE in the first place? And why are they important?
 VQVAE [1] has been around for a quite long time since 2017. It is an autoencoder (i.e. compresses and decompresses data), but with a key twist: it uses a discrete latent space. In layman's terms, it means that:
@@ -84,7 +84,7 @@ Finally, we use a decoder to reconstruct the original image from the quantised v
 
 </div>
 
-<h2 id="training-vqvae">📦 Training VQVAE</h2>
+<h2 id="training-vqvae"> Training VQVAE</h2>
 
 To train a VQVAE, there are three components we need to train: the encoder, the quantiser, and the decoder.
 Our objective is to:
@@ -199,7 +199,7 @@ For instance, below is an example of a model that fell into this local minima of
 
 Both GAN loss and perceptual loss are designed to address this issue. Perceptual loss can help capture the "structure" and "texture" of the image. Especially, GAN loss has been found to be effective in generating "sharp" and "realistic" images as shown in super resolution literature [6].
 
-<h2 id="training-the-full-model">🚀 Training the full model</h2>
+<h2 id="training-the-full-model">Training the full model</h2>
 
 For my setup of training VQVAE, I used the following configuration:
 
@@ -228,7 +228,7 @@ Architectally, I used the following setup:
 It's been found that using a large codebook size with a small codebook dimension and l2 normalised codes improves codebook usage and reconstruction quality [7][8].
 The main research question is whether Mamba, Attention, or Convolution backbones are better for VQVAE training.
 
-<h3 id="convolution-backbone">🔍 Convolution backbone</h3>
+<h3 id="convolution-backbone">Convolution backbone</h3>
 
 Apart from a few exceptions [7][9], most works use a CNN backbone for VQVAE training. I used a standard ConvNext [10] backbone design.
 To match the token count of Mamba and Transformer backbones, I downsample the image to $32 \times 32$ resolution. I also added a transformer layer before/after the quantiser. At each resolution (256, 128, 64, 32), I used two ConvNext blocks. The architecture of ConvNext block is as follows:
@@ -253,7 +253,7 @@ class NeXtformer(nn.Module):
 
 </div>
 
-<h3 id="attention-backbone">🔍 Attention backbone</h3>
+<h3 id="attention-backbone">Attention backbone</h3>
 
 ViT-VQGAN [9] was one of the first works to explore the use of attention backbones for VQVAE training (also introduced l2 normalised codes).
 I closely replicated the architecture from the paper.
@@ -312,7 +312,7 @@ class VQVAE(nn.Module):
 
 </div>
 
-<h3 id="mamba-backbone">🔍 Mamba backbone</h3>
+<h3 id="mamba-backbone">Mamba backbone</h3>
 
 For Mamba backbone, I simply used the same architecture as ViT-VQGAN, but with attention layer swapped with Mamba layer.
 I tried to variants of Mamba: standard Mamba and bidirectional Mamba.

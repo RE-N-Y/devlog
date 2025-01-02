@@ -21,7 +21,7 @@ const hasEqualContributors = equalContributors.reduce((p, n) => p || n)
 ---
 
 <div class="flex">
-	<span class="grow space-x-3">
+	<span class="grow space-x-3 max-w-full truncate">
 		{
 			authors.map((author, idx) => (
 				<span class={clsx(author.me ? "font-bold" : "opacity-70")}>
@@ -32,4 +32,3 @@ const hasEqualContributors = equalContributors.reduce((p, n) => p || n)
 		}
 	</span>
 </div>
-{hasEqualContributors && <span>* denotes equal contribution </span>}

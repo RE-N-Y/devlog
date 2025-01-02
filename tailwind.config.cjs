@@ -8,7 +8,7 @@ module.exports = {
 			secondary: "#f3e2fe",
 			text: "#ffffff",
 			accent: "#f5d0fe",
-			background: "#120727",
+			background: "#18181b",
 			muted: "hsl(210 40% 96.1%)",
 			white: "#ffffff",
 			black: "#000000"
@@ -16,6 +16,7 @@ module.exports = {
 		fontFamily:{
 			'body': ["InterVariable", ...defaultTheme.fontFamily.sans],
 			'sans': ["InterVariable", ...defaultTheme.fontFamily.sans],
+			'serif': ["Roboto Slab Variable", ...defaultTheme.fontFamily.serif],
 			'mono': ['"JetBrains Mono"', 'monospace'],
 		},
 		extend: {},

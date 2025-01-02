@@ -1,4 +1,4 @@
-import { defineConfig, squooshImageService } from 'astro/config';
+import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
@@ -8,13 +8,12 @@ import partytown from "@astrojs/partytown";
 
 import playformCompress from "@playform/compress";
 
+import react from '@astrojs/react';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://re-n-y.github.io/',
   base: '/devlog',
-  image: {
-    service: squooshImageService()
-  },
   integrations: [mdx({
     rehypePlugins: [rehypeKatex],
     remarkPlugins: [remarkMath]
@@ -22,5 +21,5 @@ export default defineConfig({
     config: {
       applyBaseStyles: false
     }
-  }), partytown(), playformCompress({ CSS: true, Image:true })]
+  }), partytown(), playformCompress({ CSS: true, Image:true }), react()]
 });

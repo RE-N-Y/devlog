@@ -2,32 +2,87 @@
 import Page from "@/src/layouts/Page.astro"
 ---
 
-<Page>
+<Page class="max-w-7xl">
 
 	<div class="space-y-4">
-		<h1 class="my-8 text-7xl font-bold">Sangwu Lee</h1>
-		<div>
-				<p>
-					Hi, I'm Sangwu. I work on production LLM/RAG systems at <a href="https://quizard.ai/">Quizard</a> @ NYC.
-					While I'm not working, I work on multimodal learning research and train ML models on anime datasets.
-					I believe that ML research "results" and "process" should be transparent and reproducible.
-					I try to use this place to keep track of my own research progress.
-				</p>
-				<p>
-					I grew up in South Korea, Netherlands, and New Mexico. My first programming language was in C, but began seriously coding with JS/TS for fullstack development since 2015.
-					After being inspired by Deepmind's progess in Machine Learning, I began studying ML in 2018 starting with NLP and Recommender systems. 
-					As for my research philosophy, I believe persistence and iteration speed are the key. I try to keep up with latest ML systems and hardware research to improve my training systems.
-				</p>
-				<p>
-					During my undergraduate years, I've worked on various research projects in machine learning / Human computer interaction with a focus on multimodal learning.
-					Together with <a href="https://roc-hci.com/">ROC-HCI Lab</a>, I've worked on developing <a href="https://parktest.net/demo">Health AI systems</a> for diagnosing Parkinson's disease and movement disorders using multimodal data.
-					I've still an active collaborator of CMU's <a href="https://www.lti.cs.cmu.edu/">Language Technologies Institute</a> where I work on multimodal reasoning tasks with vision language models.
-					I mostly <a href="https://scholar.google.com/citations?user=FBJeGpAAAAAJ"> publish in ACL, AAAI, ACII, Nature Digital Medicine, and my favorite ArXiv</a>
-				</p>
-				<p>
-					Apart from ML research, I still consider myself a mathematian at heart. Specifically, my interest is in analysis with a focus on ODE/PDE and probability theory.
-					I'm currently plowing through Axler's Measure theory book and Le Gall's probability book.
-				</p>
+		<h1 class="text-8xl mb-12">Sangwu Lee</h1>
+		<div class="font-serif space-y-20">
+			<div id="abstract">
+				<h2 class="text-4xl mb-4">Abstract</h2>
+				<div class="text-3xl my-2">
+					<p class="leading-normal">
+						Hi, I teach machines to draw pretty pictures.
+					</p>
+				</div>
+			</div>
+
+			<div id="introduction">
+				<h3 class="text-3xl mb-4">Introduction</h3>
+				<div class="text-2xl my-2">
+					<p class="leading-normal">
+						I've been playing around with computers for a while. 
+						I've played with a lot of different things ranging from <a href="https://lenia.netlify.app/">frontend</a>, <a href="https://www.oleve.co/">infra, backend engineering</a>, ..., but my current focus is <a href="/devlog/rambling">ML</a>.
+						My research is on <a href="https://krea.ai">image/video generation and creative interfaces</a>. 
+					</p>
+
+					<p class="leading-normal">
+						I spent last few years training various image generation models ranging from GAN, VQVAE, AR, and Diffusion models.
+						Nowadays, I've especially interested in <a href="https://github.com/RE-N-Y/imscore">diffusion model postraining</a>, applying <a href="/devlog/rambling/sae">SAEs</a> on image models, <a href="/devlog/rambling/vqgan">AR models, and image tokenizers</a>.
+					</p>
+
+					<p class="leading-normal">
+						Prior to devoting my time to image generation, I worked on <a href="https://scholar.google.com/citations?user=FBJeGpAAAAAJ&hl=en&authuser=2">multimodal learning research</a> with CMU LTI.
+						I've also done a fair amount of <a href="ROC-HCI">medical AI research with ROC HCI lab</a>.
+					</p>
+				</div>
+			</div>
+
+			<div id="background">
+				<h3 class="text-3xl mb-4">Background</h3>
+				<div class="text-2xl my-2">
+					<p class="leading-normal">
+						I grew up in South Korea, Netherlands, and New Mexico. 
+						I learned C when I was 11, but was quickly disappointed that it wasn't a good language for making visual mediums.
+						Fortunately, I found my way around web development and had a lot of fun building <a href="https://github.com/RE-N-Y/old-memories">static sites using HTML, CSS, and JQuery</a>.
+					</p>
+
+					<p class="leading-normal">
+						During early years of high school, I experimented with React, Angular, Laravel, Wordpress, Ruby on Rails, and Meteor.js.
+						But, when I learned about Netflix Prize, Kaggle, and AlphaGo, I quickly shifted my focus on ML. 
+					</p>
+
+					<p class="leading-normal">
+						I recently finished my undergraduate degree in CS and Mathematics from University of Rochester.
+						Apart from academic ML research, I spent a lot of time studying mathematics especially in real analysis.
+						I wish I had more time to study fourier analysis and probability theory. I'm trying to teach it to myself when I can find time.
+					</p>
+
+					<p class="leading-normal">
+						Currently, I'm a founding engineer at <a href="https://oleve.co">Oleve</a> where I helped scale <a href="https://quizard.ai/">two</a> consumer <a href="https://unstuckstudy.com/">products</a> from zero to a few million users in less than a year.
+						In my free time, I collaborate with <a href="https://krea.ai">krea.ai</a> focusing on posttraining diffusion models and SAE research.
+					</p>
+				</div>
+			</div>
+
+			<div id="methods">
+
+			</div>
+
+			<div id="appendix">
+				<h3 class="text-2xl mb-4">Appendix</h3>
+				<div class="text-xl my-2">
+					<p> - The first neural network I've ever trained was a restricted Boltzmann machine.</p>
+					<p> - From 2016 - 2024, I mostly lived in a dorm room and barracks.</p>
+					<p> - I learned C with <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=8016119&ptid=5">this lovely book.</a></p>
+					<p> - Yes, I'm Korean.</p>
+					<p> - Yes, I've already finished my military service.</p>
+					<p> - I went to a strange school called UWC-USA in Las Vegas, New Mexico.</p>
+					<p> - I'm love <a href="https://github.com/jax-ml/jax">JAX</a>. I've used it train <a href="https://github.com/RE-N-Y/scratchpad">StyleGAN, ViT-VQGAN, EDM, and MaskGiT models on TPUv3 cluster</a></p>
+				</div>
+			</div>
 		</div>
+		
+
 	</div>
+
 </Page>

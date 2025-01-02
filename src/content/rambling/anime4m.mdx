@@ -5,7 +5,7 @@ pubDate: "October 1, 2023"
 heroImage: "./images/anime4m/bigbooru.png"
 ---
 
-## 🔍 Overview
+## Overview
 
 ![Bigbooru](./images/anime4m/bigbooru.png)
 
@@ -17,7 +17,7 @@ any other modalities such as tags, artists, etc. The original Danbooru dataset c
 medium, artist, style, nsfw rating, etc. However, this makes the dataset only suitable for text2image tasks.
 
 For this reason, I've decided to create a new dataset **Bigbooru**. A large scale multimodal dataset of anime illustration
-which contains **3,614,514** images with 🥁🥁🥁
+which contains **3,614,514** images.
 
 <div className="p-2">![modalities](./images/anime4m/modalities.png)</div>
 <div className="center p-2 text-xl opacity-80">Modalities supported in Bigbooru dataset</div>
@@ -49,16 +49,16 @@ has been proposed to alleviate this issue. Most recently, [Stable Diffusion](htt
 Specifically, the decision to ensure that all dimensions are multiples of 16 was inspired by the [NaViT](https://arxiv.org/pdf/2307.06304.pdf) paper where authors propose a method to train ViT on images of arbitrary resolution.
 My plans are to retrain ViT-VQGAN tokenizer on Bigbooru dataset using NaViT methodology.
 
-## 📦 Modalities
+## Modalities
 
 One of the main contribution of Bigbooru dataset is the support for multiple modalities. Methods such as [ControlNet](https://github.com/lllyasviel/ControlNet) and [T2I Adpater](https://github.com/TencentARC/T2I-Adapter) has introduced an easy way of conditioning image generation models on various modalities.
 I've decided to go with **depth map** and **sketches** as the additional modalities since there were already two existing models that I wanted to try out.
 
-### 📐 Depth Map
+### Depth Map
 
 For extrating depth map, I've used a segmentation / depth estimation model developed by [SkyTNT](https://github.com/SkyTNT/anime-segmentation) which provides quite accurate depth maps for anime illustrations.
 
-<div className="center p-2">
+<div className="center p-2 my-4">
 	<div className="w-2/3">![anime2depth](./images/anime4m/anime2depth.jpg)</div>
 	<div className="p-2 text-xl opacity-80">Anime2Depth model</div>
 </div>
@@ -66,7 +66,7 @@ For extrating depth map, I've used a segmentation / depth estimation model devel
 Applying the model on the entire dataset took about 2~3 days on A100 GPU. Surprisingly, the model was robust across various art styles and forms.
 For that reason, I've decided to use the model as is without any further modifications.
 
-### 🎨 Sketches
+### Sketches
 
 There are multiple anime sketch extraction models available online. However, I've decided to go with [Anime2Sketch](https://github.com/Mukosame/Anime2Sketch) by Mukosame.
 Alternatives such as [SketchKeras](https://github.com/lllyasviel/sketchKeras) and [Ashtari et al.](https://gwern.net/doc/ai/nn/gan/2022-ashtari.pdf) were also considered but I went with Anime2Sketch since it was the easiest to use.
@@ -74,7 +74,7 @@ Alternatives such as [SketchKeras](https://github.com/lllyasviel/sketchKeras) an
 However, these sketch extraction models struggle with **dark** images. My hypothesis is that the model typically assumes dark pixels are part of the line. For that reason, the model struggles to distinguish between the line and the background.
 Especially for Anime2Sketch, the model tends to generate grid artifacts in dark regions as shwon below.
 
-<div className="center p-2">
+<div className="center p-2 my-4">
 	<div className="w-3/4">![artifacts](./images/anime4m/artifacts.png)</div>
 	<div className="p-2 text-xl opacity-80">Grid artifacts for dark images</div>
 </div>
@@ -84,7 +84,7 @@ Sketch2Anime model uses a unet architecture with deconvolution (a.k.a ConvTransp
 The training setup is quite simple. The modified model is loaded with pretrained weights (except for modified layers) and trained to predict the original model output using L2 loss.
 Training was done on a single A100 GPU for a single epoch on Bigbooru dataset. The training took less than a day and the results were quite satisfactory.
 
-<div className="center p-2">
+<div className="center p-2 my-4">
 	<div className="w-3/4">![artifacts](./images/anime4m/deconv.png)</div>
 	<div className="p-2 text-xl opacity-80">Improved version of Anime2Sketch</div>
 </div>
@@ -93,7 +93,7 @@ Of course, the model predictions aren't perfect, but it significantly improves t
 In addition to model improvements, I've also added CLAHE (Contrast Limited Adaptive Histogram Equalisation) preprocessing step to improve the contrast of the images.
 These contributions are currently integrated into the [Anime2Sketch](https://github.com/Mukosame/Anime2Sketch) with my recent [PR](https://github.com/Mukosame/Anime2Sketch/issues/31)! 🎉
 
-### 🏷️ Tags
+### Tags
 
 I've also made a few minor improvements to the quality of the tags. There are also a few "junk" tags that are not very useful for image generation tasks.
 These tags are abundantly present in "meta" category of tags such as `bad_pixiv_id`, `md5_mismatch`, `commentary_request`, etc.
@@ -101,15 +101,3 @@ As previously mentioned in [Animefaces 2M Dataset](/devlog/rambling/anime2m/), I
 
 In addition to improving tags, penultimate CLIP text embeddings were also extracted for each image using [LAION's ViT-bigG/14 model](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k).
 These embeddings will be further used to train model using CFG on diffusion models.
-
-### What's next? 🤔
-
-There are two more modalities and annotations that I'm planning to add to the dataset.
-
-- [ ] Quality scores
-- [ ] Segmentation masks
-
-Segmentation masks is a natural improvement over depth maps as it provides a more versatile way of controlling the image generation process.
-I'm currently considering [SAM](https://segment-anything.com/) as a zeroshot segmentation model, but I might also consider finetuning a segmentation model on Bigbooru dataset.
-Quality score is another important annotation that I'm planning on adding to the dataset. A [Emu](https://scontent-lga3-2.xx.fbcdn.net/v/t39.2365-6/10000000_210375442059452_321995130515097708_n.pdf?_nc_cat=105&ccb=1-7&_nc_sid=3c67a6&_nc_ohc=5acdOVeMx-cAX_TWZBc&_nc_ht=scontent-lga3-2.xx&oh=00_AfDEijF8M9zb-o_cnY8illdwt_gSMPVG5Hs6tmHC0R-hOg&oe=651C84CD) paper from Facebook AI Research
-has shown that finetuning MUSE/SDXL models on a curated high quality dataset can significantly improve generation quality. I could potentially hire annotators from scale.ai / MTurk to annotate the quality of each image. But, before pursuing this route, I plan to use [LAION Aesthetic Predictor](https://github.com/christophschuhmann/improved-aesthetic-predictor) and a few heuristics to automatically annotate the quality of each image.
