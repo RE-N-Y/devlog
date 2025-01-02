@@ -11,7 +11,7 @@ import coffee from "@/src/icons/coffee.svg?raw"
 		<h1>{SITE_TITLE}</h1>
 		<h2>{SITE_DESCRIPTION}</h2>
 	</div>
-	<nav class="flex">
+	<nav class="flex overflow-hidden">
 		<div class="flex grow gap-x-8">
 			<HeaderLink href="/devlog/">Home</HeaderLink>
 			<HeaderLink href="/devlog/papers">Papers</HeaderLink>
@@ -19,7 +19,8 @@ import coffee from "@/src/icons/coffee.svg?raw"
 			<HeaderLink href="/devlog/rambling">Rambling</HeaderLink>
 			<HeaderLink href="/devlog/cv.pdf">CV</HeaderLink>
 		</div>
-		<div class="flex gap-x-4">
+		<!-- hide on mobile -->
+		<div class="hidden gap-x-4 md:flex">
 			<HeaderLink href="https://github.com/RE-N-Y"><Fragment set:html={github} /></HeaderLink>
 			<HeaderLink href="https://twitter.com/sleenyre"><Fragment set:html={twitter} /></HeaderLink>
 			<HeaderLink href="https://www.buymeacoffee.com/sangwulee2g"><Fragment set:html={coffee} /></HeaderLink>
