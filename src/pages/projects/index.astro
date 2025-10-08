@@ -1,81 +1,160 @@
 ---
 import Page from "@/src/layouts/Page.astro"
-import Card from "@/src/components/Card.astro"
-import Divider from "@/src/components/Divider.astro"
-import { Image } from 'astro:assets';
-import dataset from "@/src/icons/dataset.svg?raw"
-import laptop from "@/src/icons/laptop.svg?raw"
-import arXivImage from "@/src/media/arxiv.png"
-import animefacesImage from "@/src/media/newfaces.svg"
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { Krea } from "@/src/blocks/krea.tsx"
+import base from "@/src/images/projects/sae/base.png"
+import bun12 from "@/src/images/projects/sae/bun-12.png"
+import bun24 from "@/src/images/projects/sae/bun-24.png"
+import bun36 from "@/src/images/projects/sae/bun-36.png"
+import flower12 from "@/src/images/projects/sae/flower-12.png"
+import flower24 from "@/src/images/projects/sae/flower-24.png"
+import flower36 from "@/src/images/projects/sae/flower-36.png"
+import flowergif from "@/src/content/rambling/images/steering/flower.gif"
+import lenia from "@/src/images/projects/lenia/cells.png"
+import anime from "@/src/images/projects/anime/muse.png"
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/images/projects/krea/*.{jpeg,jpg,png,gif}');
+const paths = Object.keys(images);
 ---
 
-<Page>
-	<Card class="center">
-		<h3 class="text-5xl mb-4">Lenia</h3>
-		<div class="center m-4 rounded-lg bg-white p-4">
-			<video class="aspect-square rounded-lg" height={512} width={512} src="/devlog/lenia.webm" autoplay loop></video>
-			<p>Running Neural Celluar Auotmata on the web</p>
-		</div>
-		<Divider />
-		<div class="flex gap-x-12">
-			<div>
-				<Fragment set:html={laptop} />
-				<h3 class="m-0"><a href="https://lenia.netlify.app/">Demo</a></h3>
-				<span>Built with Svelte</span>
+<Page class="flex flex-col h-dvh">
+	<!-- <main class="h-dvh px-4 flex flex-col flex-1">
+		<div class="flex-1">
+			<div class="w-full h-full center">
+				<Krea client:only="react">
+					{paths.map((path) => {
+						const image = images[path];
+						return (
+							<div class="mx-2 hover:scale-105 cursor-pointer duration-300 ease-in-out shadow shadow-white/20">
+								<Image src={image()} alt="" class="h-64 w-auto object-cover" draggable={false} />
+							</div>
+						);
+					})}
+				</Krea>
 			</div>
 		</div>
-		<p class="p-4">
-			Neural Celluar Automata project with inspiration from original <a href="https://arxiv.org/abs/1812.05433">lenia</a> paper and
-			a <a href="https://distill.pub/2020/selforg/">series of discussion on self-organising systems</a> on distll.pub. The original
-			lenia implementation was not fully differentiable and often did not lead to interesting patterns. I've made a few adjustments
-			to address these problems. Initial implementation was written in JAX. The web version was made using tensorflow.js and SvelteKit.
-		</p>
-	</Card>
-	<Card class="center">
-		<h3 class="text-5xl mb-4">Arxiv Vectors</h3>
-		<div class="center m-4 rounded-lg bg-white p-4">
-			<Image src={arXivImage} alt="arxiv vectors" />
-			<p>A sane way to search papers on ArXiv</p>
-		</div>
-		<Divider />
-		<div class="flex gap-x-12">
-			<div>
-				<Fragment set:html={laptop} />
-				<h3 class="m-0"><a href="https://arxiv.fly.dev">Demo</a></h3>
-				<span>Built with Svelte</span>
+		<div>
+			<div class="h-full flex items-end">
+				<div class="m-12 w-full flex justify-between">
+					<div>
+						<h1 class="mb-2">KREA 1</h1>
+						<h2>MY FIRST IMAGE MODEL</h2>
+					</div>
+					
+					<div class="flex relative items-center flex-col">
+						<div class="w-32 h-32 overflow-hidden z-10 mb-[-24px]">
+							<img src="/devlog/chibi.png" alt="chibi" class="object-cover" />
+						</div>
+						<button class="border-2 border-white px-12 py-4 text-4xl rounded font-bold hover:bg-white hover:text-black transition-colors bungee">
+							READ
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
-		<p class="p-4">
-			Frankly, there are a lot of CS/ML papers on arXiv. Perhaps too much. There are projects such as arXiv sanity which tries
-			to alleviate this issue, but with arrivial of vector databases and high-quality LLM embeddings, I thought it'd be fun to
-			quickly build a search engine for arXiv papers. Suprisingly it only costs $6 to embed all CS/ML abstracts from arXiv using
-			OpenAI embedding service. I've used pinecone for vector database, Svelte for building the application, and fly.io for
-			hosting.
-		</p>
-	</Card>
-	<Card class="center">
-		<h3 class="text-5xl mb-4">Animefaces</h3>
-		<div class="center m-4 rounded-lg p-4">
-			<Image src={animefacesImage} height={768} width={768}  alt="animefaces" />
-			<p class="text-gray-500 p-2">Samples from Stylegan implementation</p>
-		</div>
-		<Divider />
-		<div class="flex gap-x-12">
-			<div>
-				<Fragment set:html={dataset} />
-				<h3 class="m-0">Datasets</h3>
-				<a href="https://app.activeloop.ai/reny/animefaces">Animefaces 2M</a>
+	</main> -->
+
+	<!-- <main class="h-dvh px-4 flex flex-col flex-1 container mx-auto">
+		<div class="flex-1 center">
+			<div class="grid grid-cols-4 gap-4">
+				<div>
+					<Image src={flowergif} alt="" class="h-32 w-auto object-cover" draggable={false} />
+				</div>
+				<div>
+					<Image src={bun12} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Hairbun + 12</p>
+				</div>
+				<div>
+					<Image src={bun24} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Hairbun + 24</p>
+				</div>
+				<div>
+					<Image src={bun36} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Hairbun + 36</p>
+				</div>
+				<div>
+					<Image src={base} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Base + 0</p>
+				</div>
+				<div>
+					<Image src={flower12} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Flower + 12</p>
+				</div>
+				<div>
+					<Image src={flower24} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Flower + 24</p>
+				</div>
+				<div>
+					<Image src={flower36} alt="" class="h-32 w-auto object-cover" draggable={false} />
+					<p class="font-mono text-md">Flower + 36</p>
+				</div>
 			</div>
 		</div>
-		<p>
-			A personal project and playground to benchmark latest development in image generation. I maintain a dataset for image
-			generation with a focus on anime illustration and video synthesis illustration dataset, courtesy of <a
-				href="https://gwern.net/">Gwern</a
-			>, <a href="https://laion.ai/projects/">LAION</a>, and <a href="https://www.kaggle.com/">Kaggle</a>. I provide a clean,
-			hackable, and performant open-source implementation of image generation models. Both in pytorch and JAX. I also write a
-			technical blog on my progress and interest. I have a minimal/hackable Stylegan, ViT-VQGAN, Waifu2x, Real-ESRGAN
-			implementations in JAX. I also maintain it's pytorch counterparts. I plan to release the code and additional datasets in
-			the future.
-		</p>
-	</Card>
+		<div>
+			<div class="h-full flex items-end">
+				<div class="m-12 w-full flex justify-between">
+					<div>
+						<h1 class="mb-2">SAE</h1>
+						<h2>APPLYING sparse autoencoders on images</h2>
+					</div>
+					
+					<div class="flex relative items-center flex-col">
+						<div class="w-32 h-32 overflow-hidden z-10 mb-[-24px]">
+							<img src="/devlog/chibi.png" alt="chibi" class="object-cover" />
+						</div>
+						<button class="border-2 border-white px-12 py-4 text-4xl rounded font-bold hover:bg-white hover:text-black transition-colors bungee">
+							READ
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main> -->
+	<!-- <main  class="h-dvh px-4 flex flex-col flex-1 container mx-auto">
+		<div class="flex-1 center">
+			<Image src={lenia} alt="" draggable={false} />
+		</div>
+		<div class="h-full flex items-end">
+			<div class="m-12 w-full flex justify-between">
+				<div>
+					<h1 class="mb-2">LENIA</h1>
+					<h2>NEURAL CEULLUAR AUTOMATA</h2>
+				</div>
+				
+				<div class="flex relative items-center flex-col">
+					<div class="w-32 h-32 overflow-hidden z-10 mb-[-24px]">
+						<img src="/devlog/chibi.png" alt="chibi" class="object-cover" />
+					</div>
+					<button class="border-2 border-white px-12 py-4 text-4xl rounded font-bold hover:bg-white hover:text-black transition-colors bungee">
+						PLAY
+					</button>
+				</div>
+			</div>
+		</div>
+	</main> -->
+
+	<main  class="h-dvh px-4 flex flex-col flex-1 container mx-auto">
+		<div class="flex-1 center">
+			<Image src={anime} alt="" draggable={false} />
+		</div>
+		<div class="h-full flex items-end">
+			<div class="m-12 w-full flex justify-between">
+				<div>
+					<h1 class="mb-2">ANIME x TPU</h1>
+					<h2>Training anime models on TPUS with JAX</h2>
+				</div>
+				
+				<div class="flex relative items-center flex-col">
+					<div class="w-32 h-32 overflow-hidden z-10 mb-[-24px]">
+						<img src="/devlog/chibi.png" alt="chibi" class="object-cover" />
+					</div>
+					<button class="border-2 border-white px-12 py-4 text-4xl rounded font-bold hover:bg-white hover:text-black transition-colors bungee">
+						READ
+					</button>
+				</div>
+			</div>
+		</div>
+	</main>
+
 </Page>

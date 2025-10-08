@@ -1,0 +1,22 @@
+---
+import BaseHead from "@/src/components/BaseHead.astro"
+import { SITE_TITLE, SITE_DESCRIPTION, PREVIEW_IMAGE } from "@/src/consts"
+import Header from "@/src/components/Header.astro"
+import Footer from "@/src/components/Footer.astro"
+
+import clsx from "clsx"
+const _class = Astro.props.class
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
+	</head>
+	<body class={clsx("min-h-screen bg-paper", _class)}>
+		<header>
+			<Header title={SITE_TITLE} />
+		</header>
+		<slot />
+	</body>
+</html>

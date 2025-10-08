@@ -13,11 +13,10 @@ const _class = Astro.props.class
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
 	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main class={clsx("container mx-auto max-w-5xl px-4", _class)}>
-			<slot />
-		</main>
-		<Footer />
+	<body class={clsx("min-h-screen bg-black", _class)}>
+		<header>
+			<Header title={SITE_TITLE} />
+		</header>
+		<slot />
 	</body>
 </html>

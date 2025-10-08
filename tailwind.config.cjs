@@ -6,15 +6,16 @@ module.exports = {
 		colors:{
 			primary: "#7358c6",
 			secondary: "#f3e2fe",
-			text: "#ffffff",
+			text: "#282828",
 			accent: "#f5d0fe",
 			background: "#18181b",
 			muted: "hsl(210 40% 96.1%)",
 			white: "#ffffff",
-			black: "#000000"
+			black: "#000000",
+			paper: "#FEF9EC"
 		},
 		fontFamily:{
-			'body': ["InterVariable", ...defaultTheme.fontFamily.sans],
+			'body': ["Bungee", ...defaultTheme.fontFamily.sans],
 			'sans': ["InterVariable", ...defaultTheme.fontFamily.sans],
 			'serif': ["Roboto Slab Variable", ...defaultTheme.fontFamily.serif],
 			'mono': ['"JetBrains Mono"', 'monospace'],

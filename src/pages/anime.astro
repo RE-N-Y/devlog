@@ -1,0 +1,60 @@
+---
+
+---
+
+<script>
+import { NeuralAnime } from '@/src/components/Anime.js';
+import * as THREE from 'three';
+
+// Animation
+const clock = new THREE.Clock();
+
+// Scene setup
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Position camera
+camera.position.z = 5;
+
+const anime = new NeuralAnime({
+    resolution: 256,
+});
+
+// Update shader resolution to match actual canvas size
+anime.material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+
+// Scale plane to cover full screen
+const aspect = window.innerWidth / window.innerHeight;
+const fov = camera.fov * Math.PI / 180; // Convert to radians
+const planeHeight = 2 * Math.tan(fov / 2) * camera.position.z;
+const planeWidth = planeHeight * aspect;
+anime.scale.set(planeWidth / 4, planeHeight / 4, 1);
+
+scene.add(anime);
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    anime.material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+    
+    // Recalculate plane scaling
+    const aspect = window.innerWidth / window.innerHeight;
+    const fov = camera.fov * Math.PI / 180;
+    const planeHeight = 2 * Math.tan(fov / 2) * camera.position.z;
+    const planeWidth = planeHeight * aspect;
+    anime.scale.set(planeWidth / 4, planeHeight / 4, 1);
+    renderer.render(scene, camera);
+});
+
+renderer.render(scene, camera);
+</script>
+
+<body>
+    
+</body>

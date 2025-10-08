@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Cherry+Bomb+One&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,19 +10,31 @@
 		font-feature-settings: "rlig" 1, "calt" 1;
 	}
 	h1 {
-		@apply mt-4 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+		@apply mt-4 scroll-m-20 text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight;
+		font-family: 'Bungee', cursive;
+		text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
 	}
 	h2 {
-		@apply mt-4 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0;
+		@apply mt-4 scroll-m-20 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight transition-colors first:mt-0;
+		font-family: 'Bungee', cursive;
+		color: black;
+		text-shadow: 2px 2px 0px white, -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white;
 	}
 	h3 {
 		@apply mt-4 scroll-m-20 text-2xl font-semibold tracking-tight;
+		font-family: 'Bungee', cursive;
 	}
 	h4 {
 		@apply mt-4 scroll-m-20 text-xl font-semibold tracking-tight;
+		font-family: 'Bungee', cursive;
 	}
 	a {
-		@apply font-bold text-text transition ease-in-out hover:text-accent underline underline-offset-auto decoration-primary;
+		/* @apply text-xl md:text-2xl font-bold; */
+		/* font-family: 'Bungee', cursive;
+		color: black;
+		text-shadow: 2px 2px 0px white, -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white;
+		text-decoration: none; */
+		text-decoration: underline;
 	}
 	p {
 		@apply leading-7 text-text [&:not(:first-child)]:mt-3;
@@ -62,5 +76,13 @@
 
 	.lead {
 		@apply text-xl text-muted;
+	}
+
+	.cherry-bomb {
+		font-family: 'Cherry Bomb One', cursive;
+	}
+
+	.bungee {
+		font-family: 'Bungee', cursive;
 	}
 }

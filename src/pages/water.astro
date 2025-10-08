@@ -1,0 +1,80 @@
+---
+
+---
+
+<script>
+import { Water } from '@/src/components/Water.js';
+import * as THREE from 'three';
+
+// Animation
+const clock = new THREE.Clock();
+
+// Scene setup
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Position camera
+camera.position.z = 5;
+
+const water = new Water({
+    resolution: 1024,
+    flowStrength: 0.01,
+    grid: 6,
+    animationSpeed: 0.01,
+    noiseScale: 8.0,
+    timeScale: 0.1,
+    displacementStrength: 0.03,
+    primaryFoamIntensity: 12.0,
+    primaryShadowIntensity: 0.35,
+    secondaryFoamIntensity: 0.35,
+});
+
+// Update shader resolution to match actual canvas size
+water.material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+
+// Scale plane to cover full screen
+const aspect = window.innerWidth / window.innerHeight;
+const fov = camera.fov * Math.PI / 180; // Convert to radians
+const planeHeight = 2 * Math.tan(fov / 2) * camera.position.z;
+const planeWidth = planeHeight * aspect;
+water.scale.set(planeWidth / 4, planeHeight / 4, 1);
+
+scene.add(water);
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Update time
+    const time = clock.getElapsedTime();
+    water.material.uniforms.uTime.value = time;
+    // water.material.uniforms.uFlowStrength.value = 0.01;
+    renderer.render(scene, camera);
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    water.material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+    
+    // Recalculate plane scaling
+    const aspect = window.innerWidth / window.innerHeight;
+    const fov = camera.fov * Math.PI / 180;
+    const planeHeight = 2 * Math.tan(fov / 2) * camera.position.z;
+    const planeWidth = planeHeight * aspect;
+    water.scale.set(planeWidth / 4, planeHeight / 4, 1);
+});
+
+// Start animation
+animate();
+</script>
+
+<body>
+    
+</body>

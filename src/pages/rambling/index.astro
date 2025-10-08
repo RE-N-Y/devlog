@@ -8,22 +8,42 @@ const posts = (await getCollection("rambling")).sort((a, b) => b.data.pubDate.va
 ---
 
 <Page>
-	<section>
-		<ul>
-			{
-				posts.map((post) => (
-					<div class="mb-12">
-						<FormattedDate date={post.data.pubDate} />
-						<h1 class="mb-2">
-							<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
-						</h1>
-						<p class="mb-4 font-serif text-xl">{post.data.description}</p>
-						<div class="center">
-							{post.data.heroImage && <Image src={post.data.heroImage} class="w-full md:w-auto" alt="hero" />}
-						</div>
-					</div>
-				))
-			}
-		</ul>
-	</section>
+	<main class="container mx-auto max-w-5xl px-4">
+		<div class="flex flex-col items-center text-center mb-16 h-[65vh] center">
+			<h1 class="mb-4 cherry-bomb">RAMBLING</h1>
+			<span class="cherry-bomb opacity-50">ざれごと</span>
+		</div>
+
+		<section class="max-w-4xl mx-auto">
+			<h2 class="mb-8">DIRECTORY</h2>
+			
+			<table class="table-auto w-full text-white">
+				<thead>
+					<tr class="border-b-2 border-white">
+						<th class="text-left font-mono font-bold pb-2 w-auto">/DATE</th>
+						<th class="text-left font-mono font-bold pb-2 pl-8">/TITLE</th>
+					</tr>
+				</thead>
+				<tbody class="space-y-6">
+					{
+						posts.map((post) => (
+							<tr class="border-b border-white/30">
+								<td class="py-4 align-baseline w-auto">
+									<FormattedDate date={post.data.pubDate} />
+								</td>
+								<td class="py-4 pl-8 align-baseline">
+									<div>
+										<p class="text-white mb-2">
+											<a href={`/rambling/${post.slug}/`}>{post.data.title}</a>
+										</p>
+										<p class="text-white/80 text-base">{post.data.description}</p>
+									</div>
+								</td>
+							</tr>
+						))
+					}
+				</tbody>
+			</table>
+		</section>
+	</main>
 </Page>

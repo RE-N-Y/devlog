@@ -7,20 +7,13 @@ import coffee from "@/src/icons/coffee.svg?raw"
 ---
 
 <header class="container mx-auto mb-12 px-4">
-	<div class="py-4">
-		<h1>{SITE_TITLE}</h1>
-		<h2>{SITE_DESCRIPTION}</h2>
-	</div>
-	<nav class="flex overflow-hidden">
-		<div class="flex grow gap-x-8">
-			<HeaderLink href="/devlog/">Home</HeaderLink>
-			<HeaderLink href="/devlog/papers">Papers</HeaderLink>
-			<HeaderLink href="/devlog/projects">Projects</HeaderLink>
-			<HeaderLink href="/devlog/rambling">Rambling</HeaderLink>
-			<HeaderLink href="/devlog/cv.pdf">CV</HeaderLink>
+	<nav class="flex justify-between items-center py-4">
+		<div class="flex gap-x-8">
+			<HeaderLink href="/">HOME</HeaderLink>
+			<HeaderLink href="/projects">PROJECTS</HeaderLink>
+			<HeaderLink href="/rambling">RAMBLING</HeaderLink>
 		</div>
-		<!-- hide on mobile -->
-		<div class="hidden gap-x-4 md:flex">
+		<div class="flex gap-x-4">
 			<HeaderLink href="https://github.com/RE-N-Y"><Fragment set:html={github} /></HeaderLink>
 			<HeaderLink href="https://twitter.com/sleenyre"><Fragment set:html={twitter} /></HeaderLink>
 			<HeaderLink href="https://www.buymeacoffee.com/sangwulee2g"><Fragment set:html={coffee} /></HeaderLink>

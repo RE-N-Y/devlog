@@ -17,12 +17,19 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
-  integrations: [mdx({
-    rehypePlugins: [rehypeKatex],
-    remarkPlugins: [remarkMath]
-  }), sitemap(), tailwind({
-    config: {
-      applyBaseStyles: false
-    }
-  }), partytown(), playformCompress({ CSS: true, Image:true }), react()]
+  integrations: [
+    mdx({
+      rehypePlugins: [rehypeKatex],
+      remarkPlugins: [remarkMath]
+    }), sitemap(), tailwind({
+      config: {
+        applyBaseStyles: false
+      }
+    }), 
+    partytown(), 
+    playformCompress({ CSS: true, Image:true }), 
+    react({
+      experimentalReactChildren: true,
+    })
+  ]
 });
