@@ -2,7 +2,6 @@
 import ProjectsPage from "@/src/layouts/ProjectsPage.astro"
 import type { ImageMetadata } from "astro"
 import { Image } from "astro:assets"
-import { Krea } from "@/src/blocks/krea"
 import base from "@/src/images/projects/sae/base.png"
 import bun12 from "@/src/images/projects/sae/bun-12.png"
 import bun24 from "@/src/images/projects/sae/bun-24.png"
@@ -16,6 +15,7 @@ import anime from "@/src/images/projects/anime/muse.png"
 import redchibi from "@/src/images/projects/chibi/red.png"
 import silverchibi from "@/src/images/projects/chibi/silver.png"
 import sleepychibi from "@/src/images/projects/chibi/sleepy.png"
+import { Krea } from "@/src/components/Krea"
 
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/images/projects/krea/*.{jpeg,jpg,png,gif}');
 // half and half
@@ -52,7 +52,7 @@ const full = Object.keys(images);
 				</div>
 
 				<div class="w-full relative justify-center items-center overflow-hidden lg:hidden">
-					<Krea client:only="react" direction="left" baseVelocity={2}>
+					<Krea client:only="react" direction="left" baseVelocity={1}>
 						{full.map((path) => {
 							const image = images[path];
 							return (
