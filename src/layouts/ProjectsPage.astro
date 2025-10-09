@@ -1,0 +1,20 @@
+---
+import '../styles/global.css'
+import BaseHead from "@/src/components/BaseHead.astro"
+import { SITE_TITLE, SITE_DESCRIPTION, PREVIEW_IMAGE } from "@/src/consts"
+import Header from "@/src/components/Header.astro"
+
+import clsx from "clsx"
+const _class = Astro.props.class
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
+	</head>
+	<body class={clsx("min-h-screen bg-black", _class)}>
+		<Header class="text-white absolute top-0 left-0 right-0 z-50" title={SITE_TITLE} />
+		<slot />
+	</body>
+</html>

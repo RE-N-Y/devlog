@@ -6,8 +6,8 @@ heroImage: "./images/vqgan/teaser.png"
 ---
 
 import { Image } from "astro:assets"
-import modeling from "./images/vqgan/modeling.svg"
-import l2 from "./images/vqgan/l2.svg"
+import modeling from "./images/vqgan/modeling.png"
+import l2 from "./images/vqgan/l2.png"
 import mode from "./images/vqgan/mode.png"
 import teaser from "./images/vqgan/teaser.png"
 import grid from "./images/vqgan/grid.png"
@@ -35,7 +35,7 @@ It's been a while since I've trained VQGAN on the animefaces dataset and there's
   - [Training the codebook](#training-the-codebook)
   - [Training the encoder and decoder](#training-the-encoder-and-decoder)
   - [Additional losses](#additional-losses)
-- [Training the full model](#training-the-full-model) ← Skip to here if you're already familiar with VQVAE
+- [Training the full model](#training-the-full-model)
 
 </div>
 
@@ -46,14 +46,18 @@ VQVAE [1] has been around for a quite long time since 2017. It is an autoencoder
 
 > VQVAE can compress data into "tokens" and then decompress it back into the original data.
 
-<div className="center my-8 p-2">![compression](./images/vqgan/compression.png)</div>
+<div class="center my-12">
+	<div class="p-2">![compression](./images/vqgan/compression.png)</div>
+	<span class="text-sm opacity-80 text-center">VQVAE compresses data into tokens and decompresses back</span>
+</div>
 
 The advantage of this approach is that instead of learning directly on "uncompressed" data which would require a lot of memory and computation, we can learn on the compressed tokens which are much smaller in size.
 Prior works such as PixelSNAIL and ImageGPT were directly trained on "pixels" which made it difficult to generalise to high resolution images. But, with VQVAE, we can train on the compressed tokens and then decompress it back into the original data.
 One may still ask "why not just use a normal autoencoder?" The key difference is that VQVAE uses a "discrete" latent space which allows us to model the data as if they are "tokens".
 
-<div className="center my-8 p-2">
-	<Image src={modeling} alt="modeling" />
+<div class="center my-12">
+	<div class="p-2"><Image src={modeling} alt="modeling" /></div>
+	<span class="text-sm opacity-80 text-center">Modeling data with discrete tokens enables language model techniques</span>
 </div>
 
 This is good news for us since we can apply all the tricks from language modeling to images. For instance, we can train a minigpt model on the tokens to autorergressively generate images.
@@ -61,16 +65,25 @@ This approach was explored in the VQGAN paper [2] where the authors trained an a
 
 Sure, but how do you actually "quantise" a vector? We use a codebook! A codebook is simply a set of "vectors". When we quantise a vector, we find the closest vector in the codebook and use that as the quantised vector. This is the core idea behind VQVAE and VQGAN. To be explicit, this is how quantisation in VQVAE works:
 
-<div className="center my-8 p-2">![one](./images/vqgan/one.svg)</div>
+<div class="center my-12">
+	<div class="p-2">![one](./images/vqgan/one.png)</div>
+	<span class="text-sm opacity-80 text-center">Step 1: Encoder extracts features from the input image</span>
+</div>
 
 Firstly, we use an encoder to compress and extract its features. For example, if we have an image of shape $256 \times 256 \times 3$, using a backbone of your choice, we can compress it into a tensor of shape $16 \times 16 \times 768$, which gives us $16 \times 16 = 256$ vectors of size $768$. For each of these $256$ vectors, we find the closest vector in the codebook and use that as the quantised vector.
 
-<div className="center my-8 p-2">![two](./images/vqgan/two.svg)</div>
+<div class="center my-12">
+	<div class="p-2">![two](./images/vqgan/two.png)</div>
+	<span class="text-sm opacity-80 text-center">Step 2: Codebook quantization - finding closest vectors</span>
+</div>
 
 Notice here that the codebook gives two important outputs: the quantised vector from a "fixed" set of vectors and the "index" of the vector in the codebook.
 We can effectively use the "index" as a "token" to train autoregressive models.
 
-<div className="center my-8 p-2">![three](./images/vqgan/three.svg)</div>
+<div class="center my-12">
+	<div class="p-2">![three](./images/vqgan/three.png)</div>
+	<span class="text-sm opacity-80 text-center">Step 3: Decoder reconstructs the image from quantized vectors</span>
+</div>
 
 Finally, we use a decoder to reconstruct the original image from the quantised vectors. Now, we have a basic understanding of how vector quantisation and VQVAE works. But, the question remains: how do we train these models?
 
@@ -105,7 +118,10 @@ Since we want the encoder's output and the codebook's vectors to be close to eac
 - We can make the encoder's output close to the codebook's vectors. This is known as the **commitment loss**.
 - We can make the codebook's vectors close to the encoder's output. This is known as the **VQ loss**.
 
-<div className="center my-8 p-2">![close](./images/vqgan/close.svg)</div>
+<div class="center my-12">
+	<div class="p-2">![close](./images/vqgan/close.png)</div>
+	<span class="text-sm opacity-80 text-center">Two approaches to training the codebook</span>
+</div>
 
 **Commitment loss** is simply the L2 loss between the encoder's output and the codebook's vectors. Mathematically, it can be written as:
 
@@ -115,15 +131,18 @@ $$
 
 where $z_e$ is the encoder's output, $z_q$ is the quantised vector (i.e. the closest vector in the codebook), and $\text{sg}[\cdot]$ denotes the `stop_gradient` operator.
 
-<div className="center my-8 p-2">
-	![commit](./images/vqgan/commit.svg)
-	<p className="opacity-50">Figure - Commitment loss between the encoder's output and the codebook's vectors.</p>
+<div class="center my-12">
+	<div class="p-2">![commit](./images/vqgan/commit.png)</div>
+	<span class="text-sm opacity-80 text-center">Commitment loss between the encoder's output and the codebook's vectors</span>
 </div>
 
 It's important that we use the `stop_gradient` operator (`.detach()` in PyTorch, `.stop_gradient()` in JAX) to the codebook vector $z_q$ since we want to treat it as a constant. This way, the parameters of the encoders are updated to make the encoder's output close to the codebook's vectors.
 One way to think about this is that you're training the encoder to "commit" to a specific vector in the codebook, instead of switching between different vectors.
 
-<div className="center my-8 p-2">![vq](./images/vqgan/vq.png)</div>
+<div class="center my-12">
+	<div class="p-2">![vq](./images/vqgan/vq.png)</div>
+	<span class="text-sm opacity-80 text-center">VQ loss pulls codebook vectors closer to encoder output</span>
+</div>
 
 Vice versa, the **VQ loss** is defined similarly, but with `stop_gradient` applied to the encoder's output.
 
@@ -162,7 +181,10 @@ def straight_through_quantisation(x):
 The output of `straight_through_quantisation` is `quantise(x)`. But, we notice that `quantise(x) - x` is effectively a "constant" since we apply `detach` to it.
 Hence, when backpropgation is performed, the gradient of `quantise(x)` is effectively the gradient of `x`. i.e. we have "taped" the gradient of `x` to `quantise(x)`.
 
-<div className="center my-8 p-2">![straight](./images/vqgan/straight.png)</div>
+<div class="center my-12">
+	<div class="p-2">![straight](./images/vqgan/straight.png)</div>
+	<span class="text-sm opacity-80 text-center">Straight-through estimator allows gradients to flow through quantization</span>
+</div>
 
 Using this trick, we can allow the encoder and decoder to be trained end-to-end to optimise the reconstruction loss.
 
@@ -184,17 +206,17 @@ GANs [5] were originally developed to generate images, but they have been also a
 The limitation of simple L2 loss is that it's agnostic to aspects such as "sharpness", "texture", and "structure" of the image.
 For instance, under L2 loss, all the surrounding images have the same l2 distance compared to the image in the center.
 
-<div className="center my-8 w-full p-2">
-	<Image className="w-1/3" src={l2} alt="l2" />
-	<p className="my-2 text-sm opacity-50"> All the surrounding images have the same l2 distance!</p>
+<div class="center my-12">
+	<div class="p-2 w-1/3"><Image src={l2} alt="l2" /></div>
+	<span class="text-sm opacity-80 text-center">All the surrounding images have the same L2 distance</span>
 </div>
 
 When training any generative model, one pitfall is that the model can get away by generating "average" of all the images in the dataset.
 For instance, below is an example of a model that fell into this local minima of **animefaces** dataset.
 
-<div className="center my-8 p-2">
-	<Image className="w-2/3" src={mode} alt="mode" />
-	<p className="opacity-50">When your neural network takes the easy way out...</p>
+<div class="center my-12">
+	<div class="p-2"><Image src={mode} alt="mode" /></div>
+	<span class="text-sm opacity-80 text-center">When your neural network takes the easy way out...</span>
 </div>
 
 Both GAN loss and perceptual loss are designed to address this issue. Perceptual loss can help capture the "structure" and "texture" of the image. Especially, GAN loss has been found to be effective in generating "sharp" and "realistic" images as shown in super resolution literature [6].
@@ -382,28 +404,25 @@ An initial comparison of the three backbones reveals that CNN is a clear winner 
 Another suprising result was that bidirectional Mamba and standard Mamba performed similarly. Hence, it's not clear whether bidirectionality helps.
 Works such as VIM [11] have used bidirectional modeling for Mamba backbone, but recent work such as MambaVision [12] simply uses concatenation of SSD features and gated features to achieve better performance.
 
-<div className="center my-8 p-2">
-	![results](./images/vqgan/winner.png)
-	<p className="opacity-50">CNN backbone outperforms Attention and Mamba backbones</p>
+<div class="center my-12">
+	<div class="p-2">![results](./images/vqgan/winner.png)</div>
+	<span class="text-sm opacity-80 text-center">CNN backbone outperforms Attention and Mamba backbones</span>
 </div>
 
 One major difference between the CNN backbone and the others is that the `compress` (codebook loss) tends to converge very smoothly.
 Another noticible difference is that CNN backbones have a better initialisation.
 
-<div className="center my-8 p-2">
-	<Image src={teaser} alt="teaser" />
-	<span className="my-2 text-center opacity-50">
-		Comparison of reconstructions and initialisation for different VQVAE backbones. <br />
-		**Left: Original / Reconstructed image at initialisation. Right: Original / Reconstrcuted image after 30K steps.**
-	</span>
+<div class="center my-12">
+	<div class="p-2"><Image src={teaser} alt="teaser" /></div>
+	<span class="text-sm opacity-80 text-center">Comparison of reconstructions and initialisation for different VQVAE backbones</span>
 </div>
 
 CNN's initialisation is noisy, but resembles the original image. On the other hand, Mamba and Attention backbones mostly output a grid-like noise pattern.
 These "grid" artifacts persist throughout the training.
 
-<div className="center my-8 p-2">
-	<Image className="w-2/3" src={grid} alt="grid" />
-	<p className="opacity-50">Grid artifacts in Mamba and Attention backbones</p>
+<div class="center my-12">
+	<div class="p-2"><Image src={grid} alt="grid" /></div>
+	<span class="text-sm opacity-80 text-center">Grid artifacts in Mamba and Attention backbones</span>
 </div>
 
 To fix this issue, I had two ideas in mind:
@@ -414,9 +433,9 @@ To fix this issue, I had two ideas in mind:
 To overlap the patches, I simply add extra padding and increase kernel's size on input Conv2d and output ConvTranspose2d layers.
 For extra convolutional layers, I've added a single 3x3 Conv2d layer as a final layer so that it can learn take care of the grid artifacts.
 
-<div className="center my-8 p-2">
-	<Image className="w-2/3" src={fix} alt="fix" />
-	<p className="opacity-50">Fixing grid artifacts with overlapping patches and extra convolutional layers</p>
+<div class="center my-12">
+	<div class="p-2"><Image src={fix} alt="fix" /></div>
+	<span class="text-sm opacity-80 text-center">Fixing grid artifacts with overlapping patches and extra convolutional layers</span>
 </div>
 
 From the experiments, it seems that adding extra convolutional layers and overlapping patches does help out with the performance.

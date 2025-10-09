@@ -4,10 +4,9 @@ description: "Collection of unorganised thoughts on research"
 pubDate: "June 29, 2025"
 heroImage: "./images/thoughts/hero.png"
 ---
-Thoughts on research.
-<div className="center my-12 text-center">
-	<div className="p-2">![Thoughts](./images/thoughts/hero.png)</div>
-	Image generated using K1's unconditional distribution.
+<div class="center my-12">
+	<div class="p-2">![Thoughts](./images/thoughts/hero.png)</div>
+	<span class="text-sm opacity-80 text-center">Image generated using K1's unconditional distribution.</span>
 </div>
 
 I usually write about my small projects. I've had a lot of unorganised thoughts, and writing them down helps me articulate them.
@@ -16,11 +15,11 @@ In this post, I'll share some of my thoughts on research and how I approach it a
 
 <div className="my-24"/>
 
-# Lessons learned
+## Lessons learned
 
 Here are the most important lessons I've learned over the last few years.
 
-## Data is king
+### Data is king
 
 Algorithms are ephemeral, but data is eternal. Debugging ML code is notoriously difficult. There's no compiler and error messages that tell you what's wrong.
 On the other hand, data is much easier to debug, much easier to scale, and much easier to improve. 
@@ -29,7 +28,7 @@ From my experience, if you have a scalable training paradigm, investing in data 
 
 <div className="my-24"/>
 
-## Evaluating research
+### Evaluating research
 
 How do you know if a research paper is good? Everybody has their own preferences. But here's how I've come to evaluate them.
 
@@ -42,7 +41,7 @@ Let's go through each of them in more detail.
 
 <div className="my-24"/>
 
-### Simplicity
+#### Simplicity
 
 Simplicity matters. Simple things work. Simple ideas permeate better. Most big advancements in ML came from simple ideas.
 Going deeper with neural networks, normalisation, contrastive learning, residual connections, next token prediction, transfer learning, ...
@@ -66,7 +65,7 @@ Notable methods that I can think of are [sCM](https://openai.com/index/simplifyi
 I'd encourage people to read both sCM and IMM and compare them to the Meanflow paper. The Meanflow paper only requires basic multivariable calculus, generalises flow matching models, and is much simpler to implement.
 This is not to say that sCM and IMM are not good works. They are. But if you are to bet money on which method ends up being adopted over the next few years, I'd bet on Meanflow.
 
-#### Flow matching
+**Flow matching**
 
 Flow matching is another excellent example. Let's be honest. Diffusion and score matching are not the easiest ideas to wrap your head around. Nor were they trivial to implement.
 If I'm given a blank sheet of paper and asked to fully reproduce the EDM paper, I'm not too confident that I can do it. But if it was flow matching, I'd be pretty confident.
@@ -74,7 +73,7 @@ If I were to grab a random person on the street and ask them to code up an image
 Again, at the end of the day, diffusion, flow matching, score matching, ... have a unified framework and that's what makes it so beautiful. 
 However, when it comes to making things work, we need to choose a method that has minimal room for error.
 
-#### Image editing
+**Image editing**
 
 Let's take another example. Image editing. 
 There have been tons of research done on image editing quite recently, and we should reflect on what method ended up being most effective.
@@ -82,15 +81,15 @@ I can remember countless papers that tried to tackle image editing through [trai
 While these papers were interesting and novel, they seemed too complicated to me. In the end, the kinds of methods that won out were [Kontext](https://arxiv.org/abs/2506.15742), [Bagel](https://github.com/ByteDance-Seed/Bagel), and [UNO](https://arxiv.org/abs/2504.02160).
 The core ingredient boiled down to (1) simple concatenation of reference image tokens and (2) focus on high quality image editing data.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/kontext.png)</div>
-	Kontext. Simple architecture. Minimal complexity. Easy to scale with more data.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/kontext.png)</div>
+	<span class="text-sm opacity-80 text-center">Kontext. Simple architecture. Minimal complexity. Easy to scale with more data.</span>
 </div>
 
 Again, I don't blame the individual researchers because novelty is important for a paper to get published. 
 GPUs to train models are not cheap. However, what I have learned over the last few years is that simple, elegant methods end up being the winners.
 
-#### Alec Radford
+**Alec Radford**
 
 When I think about Alec Radford's works, many of his core works follow a simple design. CLIP, GPT, Whisper are all simple methods that leveraged transformers and large quantities of data.
 There are a lot of lessons to be learned when it comes to the development of CLIP. CLIP checks off almost all the boxes I find desirable in a research project.
@@ -105,7 +104,7 @@ There are a lot of lessons to be learned when it comes to the development of CLI
 <div className="my-24"/>
 
 
-### New capabilities
+#### New capabilities
 
 I'm always excited to see when a paper comes out that unlocks a new capability. For me, the most inspiring moment was when I first saw GANs and realised that we now have algorithms that can not just understand images, but also generate them.
 Image captioning, large language models, contrastive learning, reinforcement learning, multimodality, ... are all examples of how new paradigms and capabilities have created new frontiers for research.
@@ -115,7 +114,7 @@ Your model and product truly needs something unique that no other competitor has
 
 <div className="my-24"/>
 
-### Scalability
+#### Scalability
 
 Scalability goes hand in hand with the previous point. If your training method is scalable, you can throw more compute and more data at it.
 Debugging ML code and making fundamental improvements in research is not a difficult problem. 
@@ -123,7 +122,7 @@ Maybe the "only" reliable way we found to improve model performance is compute a
 
 <div className="my-24"/>
 
-### Making things fast
+#### Making things fast
 
 Research is all about iteration. Most of my experiments fail. Iterating and burning through ideas and experiments is a core part of research.
 Making things fast is desirable from a research perspective, but we have seen how being "fast" has unlocked new interactions and primitives.
@@ -139,7 +138,7 @@ Works that come out of Berkeley are also a close second.
 
 <div className="my-24"/>
 
-## Engineering matters
+### Engineering matters
 
 During my undergraduate days, a consistent pattern that I found with many PhD students is that they don't write clean code. Research code is extremely messy.
 One of the reasons why Huggingface's transformer library got so much traction was because it took fragmented, messy, and unorganised code and made it into a clean, well-documented, and easy to use library.
@@ -151,9 +150,9 @@ I believe this point has been iterated by many people, but I strongly believe th
 Machine learning is a young field and there are a lot of low hanging fruits that can come from simple, intuitive, and clever ideas. The meta of the game changes every few years and newcomers always have a chance to contribute.
 While ideas are important, the zeitgeist of the last decade has been scaling models and scaling data. We need good distributed system designs and engineering to keep scaling our models.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/dota.png)</div>
-	DoTA 2 distributed RL system.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/dota.png)</div>
+	<span class="text-sm opacity-80 text-center">DoTA 2 distributed RL system.</span>
 </div>
 
 Among many of OpenAI's works, I still find the [DoTA 2 paper](https://cdn.openai.com/dota-2.pdf) to be one of the most impressive ones. It used **a single layer 4096 unit LSTM with PPO** that was enough to beat the best human players.
@@ -161,7 +160,7 @@ Moreover, a lot of work went into designing an efficient distributed RL system. 
 
 <div className="my-24"/>
 
-## Persistence
+### Persistence
 
 There are many aspects that make a good researcher. Systematic thinking. Good research taste. Mathematical maturity. Engineering skills. Iteration speed.
 Engineering skill is now being recognised more and more as a core skill for a researcher. As people often say, it's easy to turn a good engineer into a good researcher, but not the other way around.
@@ -178,43 +177,43 @@ It's the place where multiple disciplines can come together and students have ti
 
 <div className="my-24"/>
 
-## Changing the objective
+### Changing the objective
 
 Many people praise the transformer architecture as the secret sauce that made modern deep learning possible. 
 I think architectural research and innovation are important, but I believe that bigger innovations came when we changed the objective function for the neural network.
 Let's consider the GPT paper. Transformers made next token prediction more scalable and efficient, but the driver of the innovation came from the next token prediction itself.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/gpt.png)</div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/gpt.png)</div>
 </div>
 
 Another branch of language modeling that has a long history is masked prediction, which originates all the way back to [word2vec](https://arxiv.org/pdf/1301.3781) which used CBOW[^2] objective to learn a vector representation of words.
 [BERT](https://arxiv.org/abs/1810.04805) and [MAE](https://arxiv.org/abs/2111.06377) are notable works that used masked prediction to learn text and image representations. 
 In some cases, you can even use masked prediction for image generation as shown in a series of works by [Huiwen Chang](https://arxiv.org/abs/2202.04200)[^3].
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/mae.png)</div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/mae.png)</div>
 </div>
 
 Contrastive learning is another great example. SimCLR starts from a basic idea. You apply augmentation that doesn't alter the "core" of the image.
 You then train a model to predict whether two images are the same or different. Pull similar things together and push different things away.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/simclr.png)</div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/simclr.png)</div>
 </div>
 
 CLIP follows a similar idea, except you maximise agreement between text and image. 
 CLIP is in contrast to SimCLR because SimCLR only requires images, but CLIP requires paired text and image data.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/clip.png)</div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/clip.png)</div>
 </div>
 
 The innovations that led to ChatGPT are also in changing the objective function. 
 Instead of asking the model to predict the next token, you can ask the model to produce a response that maximises an arbitrary reward function.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/rlhf.png)</div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/rlhf.png)</div>
 </div>
 
 The core theme that appears again and again is how simple the prediction objective is. 
@@ -228,7 +227,7 @@ I find myself implementing auxiliary losses in my research because it works and 
 <div className="my-24"/>
 
 
-## Almost everything are averages
+### Almost everything are averages
 
 I recently found this fact quite funny.
 
@@ -245,7 +244,7 @@ I recently found this fact quite funny.
 
 <div className="my-24"/>
 
-## How much mathematics do you need for ML research?
+### How much mathematics do you need for ML research?
 
 You need it as much as you need it. A good grasp on linear algebra and multivariable calculus is needed.
 Probability theory and statistics are also useful to have. Anything beyond that I find optional depending on the research topic. Just learn it as you need it.
@@ -253,7 +252,7 @@ For diffusion models, some mathematical maturity was needed, but with the introd
 
 <div className="my-24"/>
 
-## Bootstrapping research
+### Bootstrapping research
 
 Even when you start your research, one thing you should keep at the back of your mind is whether this would be something useful for your next research down the line.
 CLIP model can be used to come up with better data to train your next CLIP. LLMs can be used to generate better synthetic data. [GAN discriminator can be used to get better GAN data](https://gwern.net/face#faces-preparation).
@@ -261,39 +260,39 @@ Trying to develop a model that can provide these compounding returns is somethin
 
 <div className="my-24"/>
 
-## Product and research
+### Product and research
 
 We are still at a very experimental stage of generative models. We are seeing early applications of how generative models can unlock new interactions and primitives.
 Research should provide a foundation for unique user experience in the product; and product should help shape what type of research is needed. Code assistance is a good example.
 In the early days, the simplest primitive was right to left completion.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/right2left.png)</div>
-	Right to left completion. Tabnine and Github Copilot are the ones that popularised this primitive.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/right2left.png)</div>
+	<span class="text-sm opacity-80 text-center">Right to left completion. Tabnine and Github Copilot are the ones that popularised this primitive.</span>
 </div>
 
 Even with this simple primitive, there are a few interesting technical challenges. The latency of the model has to be almost realtime to enable seamless interaction.
 Moreover, a naive implementation occludes the model from seeing the later part of the code. Another feedback that was given at this stage was that accepting partial results was not possible.
 You had to either accept the entire completion or nothing. Partial acceptance was added to Github Copilot later for this reason.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/partial.png)</div>
-	Github Copilot soon added partial acceptance.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/partial.png)</div>
+	<span class="text-sm opacity-80 text-center">Github Copilot soon added partial acceptance.</span>
 </div>
 
 What followed were "edit" primitives that went beyond simple right to left completion. Cursor's "edit" feature that allows you to apply smart edits to your code is a good example.
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/multiline.png)</div>
-	Cursor's "multiline edit" feature.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/multiline.png)</div>
+	<span class="text-sm opacity-80 text-center">Cursor's "multiline edit" feature.</span>
 </div>
 
 Edit and completion are interesting by themselves, but programmers often need to navigate between different parts of the code. This is where the "jump" primitive comes in.
 ML engineering and research naturally blend together to power these primitives [^7] [^8] [^9].
 
-<div className="center my-12 text-center">
-	<div className="p-2 w-2/3">![Thoughts](./images/thoughts/jump.png)</div>
-	Cursor's "jump" feature. It navigates you to the location of the code you want to edit next.
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Thoughts](./images/thoughts/jump.png)</div>
+	<span class="text-sm opacity-80 text-center">Cursor's "jump" feature. It navigates you to the location of the code you want to edit next.</span>
 </div>
 
 Product provides a source of inspiration for practical research directions, but also serves as a source of training environment. In the context of code assistants, acceptance rate can be used as a proxy for reward function.

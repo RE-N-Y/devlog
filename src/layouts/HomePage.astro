@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css'
 import BaseHead from "@/src/components/BaseHead.astro"
 import { SITE_TITLE, SITE_DESCRIPTION, PREVIEW_IMAGE } from "@/src/consts"
 
@@ -12,7 +13,7 @@ const _class = Astro.props.class
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
 	</head>
 	<body>
-		<div id="canvas" class="fixed top-0 left-0 -z-10 w-full h-full"></div>
+		<div id="canvas" class="fixed top-0 left-0 w-full h-full" style="z-index: -10;"></div>
 		<div class="fixed top-0 left-0 z-0 w-full h-full backdrop-blur-md bg-white/5"></div>
 		<main class={clsx("h-screen relative z-10", _class)}>
 			<slot />
@@ -39,7 +40,7 @@ const _class = Astro.props.class
 			resolution: 1024,
 			flowStrength: 0.01,
 			grid: 12,
-			animationSpeed: 0.01,
+			animationSpeed: 0.001,
 			noiseScale: 8.0,
 			timeScale: 0.1,
 			displacementStrength: 0.03,

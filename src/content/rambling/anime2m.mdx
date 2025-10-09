@@ -5,10 +5,13 @@ pubDate: "June 18, 2023"
 heroImage: "./images/anime2m/animefaces2m.png"
 ---
 
-## Overview
+
+<div class="center my-12">
+	<div class="p-2">![animefaces2m](./images/anime2m/activeloop/animefaces.png)</div>
+	<span class="text-sm opacity-80 text-center"><a href="https://activeloop.ai/datasets/animefaces-2m">Animefaces 2M dataset</a></span>
+</div>
 
 
-![animefaces2m](./images/anime2m/activeloop/animefaces.png)
 
 Over the recent years, there have been multiple datasets in anime illustration generation space.
 The largest one is [Danbooru dataset](https://gwern.net/danbooru2021) with ~5M images. Gwern (creator of the dataset) has put a lot of effort into cleaning and annotating the dataset. The original dataset only contains full illustrations, so he also created a subset of 512px portrait images focusing on faces.
@@ -18,7 +21,12 @@ Steven Evan's [Pixiv dataset](https://www.kaggle.com/datasets/stevenevan99/face-
 The dataset consists of top ranking pixiv images from 2018 ~ 2020. However, the faces dataset suffers from low resolution and the faces are too tightly cropped for my taste.
 To address these issues, I decided to create a large-scale animefaces dataset combining all three sources with a focus on maintaining high-quality. Below is a brief overview of how the dataset was created.
 
-![pipeline](./images/anime2m/animefaces2m.png)
+
+<div class="center my-12">
+	<div class="p-2">![pipeline](./images/anime2m/animefaces2m.png)</div>
+	<span class="text-sm opacity-80 text-center">Data cleaning and processing pipeline for anime2m dataset</span>
+</div>
+
 
 ## Data cleaning, filtering, processing, and all that jazz
 
@@ -158,18 +166,12 @@ The generation results are certainly not Stable Diffusion level, but I was glad 
 
 ![stylegan](./images/anime2m/stylegan.png)
 
-<div className="center opacity-85 p-2">
-	<p>Non cherry picked samples from my StyleGANv2 implementation</p>
-</div>
 
 Despite the popularity of Diffusion models, I've been a long supporter of GANs. It still has a lot of benefits over diffusion models such as faster sampling, lightning speed training time, and controllable latent space.
 Above are trained models from custom Stylegan implementation that I wrote a couple of years ago. I may try to reproduce results from [GigaGAN](https://mingukkang.github.io/GigaGAN/) paper to explore this direction. Here are a few more cherry picked samples from the model.
 
 ![stylegan](./images/anime2m/swinstyle.png)
 
-<div className="center opacity-85 p-2">
-	<p>Cherry picked samples from [Styleswin](https://github.com/microsoft/StyleSwin) model</p>
-</div>
 
 ### Diffusion models
 

@@ -5,9 +5,9 @@ pubDate: "April 20, 2025"
 heroImage: "./images/mathfav/mathfav.png"
 ---
 
-<div className="center my-12">
-	<div className="p-2">![Mathfav](./images/mathfav/mathfav.png)</div>I miss these blackboards and smooth hagoromo chalk strokes.
-	Old photos during office hours.
+<div class="center my-12">
+	<div class="p-2">![Mathfav](./images/mathfav/mathfav.png)</div>
+	<span class="text-sm opacity-80 text-center">I miss these blackboards and smooth hagoromo chalk strokes. Old photos during office hours.</span>
 </div>
 
 I've been thinking about writing about a few of my favorite theorems that I've learned during my undergraduate mathematics.
@@ -49,11 +49,9 @@ The proof of this theorem is very precise and constructive. As professor Geba wo
 The core idea of the proof is to leverage the fact that a conditionally convergent series contains both positive and negative terms. (Can you see why?)
 By rearranging postive / negative terms, you can control the sum to converge to an arbitary value.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/riemann.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		You can rearrange the terms to converge to any sum you want.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/riemann.png)</div>
+	<span class="text-sm opacity-80 text-center">You can rearrange the terms to converge to any sum you want.</span>
 </div>
 
 It's one of the few theorems that's not only surprising, but makes you question why did Riemann even thought about proving this theorem in the first place.
@@ -221,11 +219,9 @@ Brouwer's fixed point has many many ways to prove it. But, I like the topology p
 If you were to prove this theorem for 1D case, the most natural proof is to use intermediate value theorem (IVT). More formally put, if $f: [0, 1] \to [0, 1]$ is continuous, then there exists $x \in [0, 1]$ such that $f(x) = x$.
 By letting $g(x) = f(x) - x$ and considering when $g(x) = 0$, one can easily use IVT to show that there exists a fixed point.
 
-<div className="center my-12">
-	<div className="p-2">![Mathfav](./images/mathfav/coffee.jpg)</div>
-	<span className="text-sm opacity-80">
-		This theorem tells me that every morning I swirl my coffee, at least one point on the surface will remain in the same place.
-	</span>
+<div class="center my-12">
+	<div class="p-2">![Mathfav](./images/mathfav/coffee.jpg)</div>
+	<span class="text-sm opacity-80 text-center">This theorem tells me that every morning I swirl my coffee, at least one point on the surface will remain in the same place.</span>
 </div>
 
 Base on this observation, it's quite natural to seek a similar analytical proof for higher dimensions. However, turns out that if you know a bit of topology, you can apply fundamental group to show that there must be a fixed point.
@@ -241,13 +237,9 @@ Homotopy and fundamental group is one of the way that tells us that donuts and c
 
 Let $X$ be a topological space. Two continuous functions $f, g: X \to Y$ are called homotopic if there exists a continuous function $F: X \times [0, 1] \to Y$ such that $F(x, 0) = f(x)$ and $F(x, 1) = g(x)$ for all $x \in X$.
 
-<div className="center my-12">
-	<div className="center flex flex-row gap-4">
-		<div className="w-2/3 p-2">![Mathfav](./images/mathfav/homotopy.gif)</div>
-	</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Homotopy is a fancy way of saying that one path can be continuously deformed into another path.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/homotopy.gif)</div>
+	<span class="text-sm opacity-80 text-center">Homotopy is a fancy way of saying that one path can be continuously deformed into another path.</span>
 </div>
 
 All that abstract nonsense above is to say that there's a way of continously deforming one path into another path.
@@ -258,19 +250,16 @@ Now that we've defined what it means for two objects to be "the same", now we ca
 
 Let $X$ be a topological space. The fundamental group of $X$, denoted by $\pi_1(X)$, is the set of all homotopy classes of loops in $X$ where the group operation is given by the concatenation of loops.
 
-<div className="center my-12">
-	<div className="w-1/2 p-2">![Mathfav](./images/mathfav/group.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">Concatenation of loops</span>
+<div class="center my-12">
+	<div class="p-2 w-1/2">![Mathfav](./images/mathfav/group.png)</div>
+	<span class="text-sm opacity-80 text-center">Concatenation of loops</span>
 </div>
 
 To make this example more concrete, let's consider an unit ball $B^2$ in $\mathbb{R}^2$.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/circle.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Loops on an unit ball can be all retracted to a point. For instance, the blue loop could be retracted to a single point by
-		slowly shrinking it.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/circle.png)</div>
+	<span class="text-sm opacity-80 text-center">Loops on an unit ball can be all retracted to a point. For instance, the blue loop could be retracted to a single point by slowly shrinking it.</span>
 </div>
 
 Given any closed loop on the unit ball, it's easy to see that one can continuously deform it to a point. Therefore, any (concatenation of) loops on the unit ball can be continuously deformed to a point.
@@ -278,9 +267,9 @@ Therefore, the fundamental group of $B^2$ is trivial. That is to say, there's on
 
 Let's take an example of a circle $S^1$.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/s1.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">Circle</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/s1.png)</div>
+	<span class="text-sm opacity-80 text-center">Circle</span>
 </div>
 
 In $S^1$, there are definately more than one kind of loops. For instance, you can go around the loop once, twice, .... as many times as you want in clockwise direction.
@@ -289,9 +278,9 @@ Therefore, the fundamental group of $S^1$ is $\mathbb{Z}$.
 
 Let's take an example of a torus $T^2$.
 
-<div className="center my-12">
-	<div className="w-1/3 p-2">![Mathfav](./images/mathfav/torus.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">Torus</span>
+<div class="center my-12">
+	<div class="p-2 w-1/3">![Mathfav](./images/mathfav/torus.png)</div>
+	<span class="text-sm opacity-80 text-center">Torus</span>
 </div>
 
 For example, on a torus, we see two ways you can go around the donut. You can go around the donut without looping through the hole, or you can go around the donut and loop through the hole.
@@ -304,9 +293,9 @@ Therefore, the fundamental group of $T^2$ is $\mathbb{Z} \times \mathbb{Z}$. One
 We now have a framework for characterising properties of surfaces. For contradiction, given a continous function $f: B^2 \to B^2$, suppose that $f$ has no fixed points.
 Then, we can construct a mapping $F: B^2 \to S^1$ by forming a line from $f(x)$ to $x$ and taking the intersection of the line with the unit circle.
 
-<div className="center my-12">
-	<div className="w-1/3 p-2">![Mathfav](./images/mathfav/brouwer.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">Mapping $F$ takes $B^2$ to $S^1$</span>
+<div class="center my-12">
+	<div class="p-2 w-1/3">![Mathfav](./images/mathfav/brouwer.png)</div>
+	<span class="text-sm opacity-80 text-center">Mapping $F$ takes $B^2$ to $S^1$</span>
 </div>
 
 For the edge case when $x$ is on the unit circle, we can let $F(x) = x$. The mapping $F : B^2 \to S^1$ is a special type of mapping called a **retraction**.
@@ -385,11 +374,9 @@ $$
 
 which completes the proof $\blacksquare$.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/amgm.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Quick illustration of forward backward induction proof.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/amgm.png)</div>
+	<span class="text-sm opacity-80 text-center">Quick illustration of forward backward induction proof.</span>
 </div>
 
 Like any things in analysis, this proof is attributed to Cauchy. It's a good illustration of how creative you can be with induction.
@@ -408,11 +395,9 @@ $$
 
 Then, we are sneakly told that the graph of $e^x$ looks like this:
 
-<div className="center my-12">
-	<div className="p-2 w-2/3">![Mathfav](./images/mathfav/exp.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Graph of $e^x$. We know what $e^n$ should be, but how do we define $e^x$ for non-integer values of $x$?
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/exp.png)</div>
+	<span class="text-sm opacity-80 text-center">Graph of $e^x$. We know what $e^n$ should be, but how do we define $e^x$ for non-integer values of $x$?</span>
 </div>
 
 The values at integer points makes sense, they're well-defined since we know what it means to multiply a number by itself a certain number of times.
@@ -448,11 +433,9 @@ Last but not the least, I would like to mention the infinite golden balls theore
 However, I like calling this theorem as the infinite golden balls theorem in honor of professor Mueller's sense of humor.
 Yes, you have not read it wrong. This theorem suggests that you can take a solid ball and rearrange it into two balls of the same size as the original one.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/banach.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		You can split a solid ball into finitely many pieces and rearrange it into two solid balls of the same size as the original one.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/banach.png)</div>
+	<span class="text-sm opacity-80 text-center">You can split a solid ball into finitely many pieces and rearrange it into two solid balls of the same size as the original one.</span>
 </div>
 
 I believe that the best explanation for this theorem is one covered by [VSauce](https://www.youtube.com/watch?v=s86-Z-CbaHA) which I watched a while back.
@@ -504,23 +487,19 @@ If a set is NOT open, it doesn't imply that it's closed, and vice versa.
 Furthermore, we have a hierachy of topological spaces based on how "separable" the subsets of that topological space are.
 For instance, $T_2$ is called a Hausdorff space, which is a space where any two distinct points can be separated by disjoint open sets.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/hausdorff.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Hausdorff space allows us to separate any two distinct points by disjoint open sets.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/hausdorff.png)</div>
+	<span class="text-sm opacity-80 text-center">Hausdorff space allows us to separate any two distinct points by disjoint open sets.</span>
 </div>
 
 One might expect that we would have $T_1, T_2, T_3, \cdots$... but we don't.
 
-<div className="center my-12">
-	<div className="w-2/3 p-2">![Mathfav](./images/mathfav/kolmogorov.png)</div>
-	<span className="w-1/2 text-center text-sm opacity-80">
-		Kolmogorov Classification of topological spaces. The more "separable" the space is, the higher the number.
-	</span>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![Mathfav](./images/mathfav/kolmogorov.png)</div>
+	<span class="text-sm opacity-80 text-center">Kolmogorov Classification of topological spaces. The more "separable" the space is, the higher the number.</span>
 </div>
 
-### $\epsilon$, $\delta$ proofs
+### $\epsilon, \delta$ proofs
 
 $\epsilon$, $\delta$ proofs, and field axioms were one of the first "rigorous" introduction to analysis, and maybe the first time you see a rigorous proof in your first analysis class.
 For a highschool student who's dissatisfied with the "black magic" treatment of limits in calculus, $\epsilon$, $\delta$ proofs served me as a good illustration of how you can set up the right abstraction to rigorously "prove" mathematical statements without relying on graphics and hand waving alone.

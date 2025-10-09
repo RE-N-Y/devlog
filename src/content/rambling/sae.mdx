@@ -6,12 +6,9 @@ heroImage: "./images/sae/globe.png"
 ---
 
 
-<div className="my-12 center">
-    
-    <div className="p-2">
-        ![Gazing](./images/sae/gazing.png)
-    </div>
-    You can access [fluxlens](https://fluxlens.vercel.app) to explore the features of Sparse Autoencoders.
+<div class="center my-12">
+	<div class="p-2">![Gazing](./images/sae/gazing.png)</div>
+	<span class="text-sm opacity-80 text-center">You can access [fluxlens](https://fluxlens.vercel.app) to explore the features of Sparse Autoencoders.</span>
 </div>
 
 ## Preface
@@ -42,11 +39,9 @@ Neurologists have been facing similar challenges on a different subject, the bra
 Similarly, with neural networks, we can feed it a wide range of data and see what part of neurons gets "activated".
 In CNNs, this task is a bit easier since one can directly look at the CNN kernels (i.e. filters).
 
-<div className="center p-2">
-    <div className="p-2">
-        ![filters](./images/sae/filters.png)
-    </div>
-    Filters learned from AlexNet - [Source](https://cs231n.github.io/convolutional-networks/)
+<div class="center my-12">
+	<div class="p-2">![filters](./images/sae/filters.png)</div>
+	<span class="text-sm opacity-80 text-center">Filters learned from AlexNet - [Source](https://cs231n.github.io/convolutional-networks/)</span>
 </div>
 
 
@@ -55,11 +50,9 @@ Feeding in bunch of data to the model and collecting statistics on where model g
 
 One of the earliest solution to this problem was "DeepDream" flips the problem. Instead of **feeding data** which fires specific parts of the model. You can **optimize the data** to maximally activate a specific part of the model.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![deepdream](./images/sae/deepdream.png)
-    </div>
-    Source: Distil.pub
+<div class="center my-12">
+	<div class="p-2">![deepdream](./images/sae/deepdream.png)</div>
+	<span class="text-sm opacity-80 text-center">Source: Distil.pub</span>
 </div>  
 
 Early works in interpretability research mainly focused on ImageNet pretrained models and mutlimodal models such as CLIP. But, as large language models became a more attractive specimen, interpretability researchers got naturally interested in applying these techniques to LLMs. 
@@ -69,10 +62,9 @@ Early works in interpretability research mainly focused on ImageNet pretrained m
 Sparse Autoencoder, also known as dictionary learning is a [classical method](https://scikit-learn.org/1.5/modules/generated/sklearn.decomposition.DictionaryLearning.html) to learn a dictionary which sparsely encodes the data.
 In practice, SAEs are trained by a shallow neural network with a single encoder / decoder.
 
-<div className="center p-2">
-    <div className="p-2 w-2/3">
-        ![arch](./images/sae/arch.png)
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![arch](./images/sae/arch.png)</div>
+	<span class="text-sm opacity-80 text-center">Sparse Autoencoder architecture</span>
 </div>  
 
 A well-trained SAE has the following features
@@ -83,20 +75,18 @@ The first objective is easily achieved with a standard reconstruction loss.
 The second objective is typically achieved with a `ReLU` activation to threshold negative values and adding a sparsity penalty.
 
 
-<div className="center p-2">
-    <div className="p-2 w-2/3">
-        ![archx](./images/sae/archx.png)
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![archx](./images/sae/archx.png)</div>
+	<span class="text-sm opacity-80 text-center">SAE with ReLU activation and sparsity penalty</span>
 </div>
 
 
 It's still unclear at this point why SAEs are useful for decomposing a single feature vector.
 But, if you think about what SAE is doing in terms of matrix multiplication, it becomes quite clear.
 
-<div className="center p-2">
-    <div className="p-2 w-2/3">
-        ![matmul](./images/sae/matmul.png)
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![matmul](./images/sae/matmul.png)</div>
+	<span class="text-sm opacity-80 text-center">Matrix multiplication view of SAE decomposition</span>
 </div>
 
 Multiplying a sparsely activated hidden feature is equivalent to taking a weighted average over a small subset of decoder matrix columns.
@@ -105,10 +95,9 @@ One parallel I would like to draw here is that MLP blocks and GLU blocks found i
 
 Another key advantage of SAE with generative model is that once you identify what each of the SAE features' semantics, one can simply "boost" this feature to guide the model's generation as seen with [Golden Gate Claude](https://www.anthropic.com/news/golden-gate-claude).
 
-<div className="center p-2">
-    <div className="p-2 w-2/3">
-        ![steer](./images/sae/steer.png)
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![steer](./images/sae/steer.png)</div>
+	<span class="text-sm opacity-80 text-center">Steering model generation by boosting SAE features</span>
 </div>
 
 Sadly, interpreting SAE feature is still a somewhat manual process. Most common interpretability strategy is:
@@ -130,10 +119,9 @@ Since then, multiple variants of SAEs have emerged. The variants I've tested are
 In the end, I've ended up using Topk SAEs because these variants allow you to explicitly set desired `L0` (i.e. $k$) value.
 Furthmore, Topk SAEs come with the benefit that you don't have to tune spacity loss weight $\lambda$ as it is done in standard, Gated, and JumpReLU SAEs.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![sweep](./images/sae/sweep.png)
-    </div>
+<div class="center my-12">
+	<div class="p-2">![sweep](./images/sae/sweep.png)</div>
+	<span class="text-sm opacity-80 text-center">Hyperparameter sweep results for SAE variants</span>
 </div>
 
 After running a sweeps on learning rate, $\lambda$, and $k$ values across different values, I've found that TopK SAEs to be most performant and robust across different configurations.
@@ -187,38 +175,31 @@ Visualising dataset is always a joyful activity. I wanted to develop a minimal i
 Over a weekend, I built `fluxlens`, a minimal visualisation tool to explore SAE features and multimodal datasets.
 The points are rendered using nomic's open source `deepscatter` engine. I use `cuml`'s CUDA implementation of UMAP and HDBSCAN to for effiicient clustering and dimensionality reduction.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/interface.png)
-    </div>
-    <span className="text-xl font-semibold mt-4 mb-8">Quick tour of SAE explorer interface</span>
-    <div className="p-2">
-        ![cc3m](./images/sae/cc3m.png)
-    </div>
-    <span className="text-xl font-semibold">[CC3M dataset visualisation](https://fluxlens.vercel.app)</span>
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/interface.png)</div>
+	<span class="text-sm opacity-80 text-center">Quick tour of SAE explorer interface</span>
+</div>
+
+<div class="center my-12">
+	<div class="p-2">![cc3m](./images/sae/cc3m.png)</div>
+	<span class="text-sm opacity-80 text-center">[CC3M dataset visualisation](https://fluxlens.vercel.app)</span>
 </div>
 
 ## Interesting defects in CC3M dataset
 
-<div className="center p-2">
-    <div className="p-2">
-        ![defects](./images/sae/newspapers.png)
-    </div>
-    <span className="text-xl font-semibold">Near duplicate newspaper images</span>
+<div class="center my-12">
+	<div class="p-2">![defects](./images/sae/newspapers.png)</div>
+	<span class="text-sm opacity-80 text-center">Near duplicate newspaper images</span>
 </div>
 
-<div className="center p-2">
-    <div className="p-2">
-        ![defects](./images/sae/palette.png)
-    </div>
-    <span className="text-xl font-semibold">Color palette images</span>
+<div class="center my-12">
+	<div class="p-2">![defects](./images/sae/palette.png)</div>
+	<span class="text-sm opacity-80 text-center">Color palette images</span>
 </div>
 
-<div className="center p-2">
-    <div className="p-2">
-        ![404](./images/sae/404.png)
-    </div>
-    <span className="text-xl font-semibold">404 images</span>
+<div class="center my-12">
+	<div class="p-2">![404](./images/sae/404.png)</div>
+	<span class="text-sm opacity-80 text-center">404 images</span>
 </div>
 
 
@@ -226,25 +207,19 @@ The points are rendered using nomic's open source `deepscatter` engine. I use `c
 
 For CLIP vision / text encoders the results were quite promising.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/houses.png)
-    </div>
-    Houses SAE features
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/houses.png)</div>
+	<span class="text-sm opacity-80 text-center">Houses SAE features</span>
 </div>
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/drinks.png)
-    </div>
-    Drinks SAE features
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/drinks.png)</div>
+	<span class="text-sm opacity-80 text-center">Drinks SAE features</span>
 </div>
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/dance.png)
-    </div>
-    Dance SAE features
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/dance.png)</div>
+	<span class="text-sm opacity-80 text-center">Dance SAE features</span>
 </div>
 
 
@@ -253,18 +228,14 @@ For CLIP vision / text encoders the results were quite promising.
 I've found that SAEs trained on the lower stream of FLUX model `transformer_blocks.0` were significantly harder to interpret compared to later layers.
 The later layers such as `single_transformer_blocks.37` seemed to have slightly more interpretable features. Below are a few examples of features visualised from FLUX SAEs on `single_transformer_blocks.37`.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/roads.png)
-    </div>
-    Natural road SAE features
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/roads.png)</div>
+	<span class="text-sm opacity-80 text-center">Natural road SAE features</span>
 </div>
 
-<div className="center p-2">
-    <div className="p-2">
-        ![interface](./images/sae/text.png)
-    </div>
-    Text SAE features
+<div class="center my-12">
+	<div class="p-2">![interface](./images/sae/text.png)</div>
+	<span class="text-sm opacity-80 text-center">Text SAE features</span>
 </div>
 
 These features are significantly less interpretable than CLIP features. I hypothesize that this is due to the fact that
@@ -276,11 +247,9 @@ These features are significantly less interpretable than CLIP features. I hypoth
 After extracting these SAE features, I tried steering the model using the identified features. 
 I tried steering the generation using both CLIP SAE features and FLUX SAE features, but the results were not as promising as I had hoped.
 
-<div className="center p-2">
-    <div className="p-2">
-        ![steering](./images/sae/steering.png)
-    </div>
-    Steering results using FLUX SAE features
+<div class="center my-12">
+	<div class="p-2">![steering](./images/sae/steering.png)</div>
+	<span class="text-sm opacity-80 text-center">Steering results using FLUX SAE features</span>
 </div>
 
 This result was a bit unexpected since [Gytis](https://www.lesswrong.com/posts/Quqekpvx8BGMMcaem/interpreting-and-steering-features-in-images) had previously shown that steering works well with CLIP SAEs on Kandinsky 2.2 models.
@@ -290,14 +259,14 @@ However, I was overall happy with the visualisation results and CLIP SAEs that I
 ### Possible reasons for steering failure
 
 <div className="my-4">
-    <span className="text-xl font-semibold">
+    <span className="font-semibold">
         CLIP has relatively minimal impact on generation content.
     </span>
     I've abalated effects of CLIP on 6~8 different images by setting CLIP features to zero. At least on first glance, the generated images did not seem to change much.
     Of course, this observation is on a handful of images, so it might not be conclusive.
 </div>
 <div className="my-4">
-    <span className="text-xl font-semibold">
+    <span className="font-semibold">
         FLUX is a flow matching model.
     </span>
     At the end of the day, FLUX is a flow matching model, not an autoregressive model which predicts the image directly. 
@@ -305,7 +274,7 @@ However, I was overall happy with the visualisation results and CLIP SAEs that I
     It might be more interesting to apply SAE steering techniques to image generation models such as [HART](https://github.com/mit-han-lab/hart), [MAR](https://arxiv.org/abs/2406.11838v1), and [Lumina](https://github.com/Alpha-VLLM/Lumina-mGPT).
 </div>
 <div className="my-4">
-    <span className="text-xl font-semibold">
+    <span className="font-semibold">
         I'm very dumb and my steering implementation is flawed (quite likely).
     </span>
     I might have made a mistake in my steering implementation. In that case, I would love to hear feedback from the community.

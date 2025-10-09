@@ -7,9 +7,9 @@ heroImage: "./images/steering/flower.gif"
 
 import { Image } from "astro:assets"
 
-<div className="my-12 center">
-    ![teaser](./images/steering/hairbun.gif)
-    <p className="opacity-50">Linear interpolation of hairbun vector from $0$ ~ $24$</p>
+<div class="center my-12">
+	<div class="p-2">![teaser](./images/steering/hairbun.gif)</div>
+	<span class="text-sm opacity-80 text-center">Linear interpolation of hairbun vector from $0$ ~ $24$</span>
 </div>
 
 
@@ -20,9 +20,9 @@ While the results and visualisation demonstrated the potential of SAEs, steering
 
 However, a couple months ago, black forest labs team relased [redux](https://huggingface.co/black-forest-labs/FLUX.1-Redux-dev), a version of flux conditioned on SigLIP vision embeddings.
 
-<div className="center my-8 p-2">
-    ![flux redux](./images/steering/bread.png)
-    <p className="opacity-50"> flux redux allows users to condition the model on an image, allowing users to create variations - [source](https://blackforestlabs.ai/flux-1-tools/)</p>
+<div class="center my-12">
+	<div class="p-2">![flux redux](./images/steering/bread.png)</div>
+	<span class="text-sm opacity-80 text-center">flux redux allows users to condition the model on an image, allowing users to create variations - [source](https://blackforestlabs.ai/flux-1-tools/)</span>
 </div>
 
 I qucikly found that redux is **heavily** conditioned on the input image, making it a prime candidate for steering with SAEs.
@@ -45,23 +45,23 @@ Before we dive into the results, let's first understand how redux works.
 To refresh our memory, flux is a MMDiT model. At a high level, MMDiT block takes text + image embeddings as a single sequence and processes them through a bidirectional transformer.
 This architecture is in contrast to conditioning via crossattention which have been used since SD - SDXL variants.
 
-<div className="center my-8 p-2">
-    ![mmdit](./images/steering/flux.png)
-    <p className="opacity-50"> Simplified schematic of flux architecture. flux has two variants of MMDiT blocks, a double stream block which processes text and image embeddings in parallel and a single stream block which processes text and image embeddings as a single sequence.</p>
+<div class="center my-12">
+	<div class="p-2">![mmdit](./images/steering/flux.png)</div>
+	<span class="text-sm opacity-80 text-center">Simplified schematic of flux architecture. flux has two variants of MMDiT blocks, a double stream block which processes text and image embeddings in parallel and a single stream block which processes text and image embeddings as a single sequence.</span>
 </div>
 
 There are countless ways to inject conditioning information into model (post for another day), but redux chooses a simple yet effective approach.
 
-<div className="center my-8 p-2">
-    ![redux](./images/steering/redux.png)
-    <p className="opacity-50"> Conditioning with SigLIP embeddings in flux redux</p>
+<div class="center my-12">
+	<div class="p-2">![redux](./images/steering/redux.png)</div>
+	<span class="text-sm opacity-80 text-center">Conditioning with SigLIP embeddings in flux redux</span>
 </div>
 
 In redux, SigLIP embeddings are projected using a light MLP layer and concatencated together with text embeddings. Past this point, the text + siglip embeddings are treated as a single text embedding sequence and processed through the MMDiT block.
 
-<div className="center my-8 p-2">
-    ![fuyu](https://www.adept.ai/images/blog/fuyu-8b/architecture.png)
-    <p className="opacity-50"> Fuyu architecture - [source](https://www.adept.ai/blog/fuyu-8b)</p>
+<div class="center my-12">
+	<div class="p-2">![fuyu](./images/steering/fuyu.png)</div>
+	<span class="text-sm opacity-80 text-center">Fuyu architecture - [source](https://www.adept.ai/blog/fuyu-8b)</span>
 </div>
 
 Afterwards, the good old attention mechanism kicks in and conditions the image embeddings on siglip embeddings.
@@ -73,33 +73,33 @@ There is a discussion around whether using patch embeddings / pretrained image e
 Using Topk SAE on CC3M dataset, I was able to train a TopK SAE on SigLIP embeddings. Specifically, I train SAE on `.last_hidden_state` embeddings on `google/siglip-so400m-patch14-384` model.
 The SigLIP SAE is available [here](https://fluxlens.vercel.app/sae/long/cc3m-siglip-vision-topk-lr-3e-4-k-16-expansion-4-acts). For details on the training recipe, refer to the [previous post](/devlog/rambling/sae).
 
-<div className="center my-8 p-2">
-    ![interface](./images/steering/interface.png)
-    <p className="opacity-50"> Annotated interface for SigLIP SAE - [source](https://fluxlens.vercel.app/sae/long/cc3m-siglip-vision-topk-lr-3e-4-k-16-expansion-4-acts)</p>
+<div class="center my-12">
+	<div class="p-2">![interface](./images/steering/interface.png)</div>
+	<span class="text-sm opacity-80 text-center">Annotated interface for SigLIP SAE - [source](https://fluxlens.vercel.app/sae/long/cc3m-siglip-vision-topk-lr-3e-4-k-16-expansion-4-acts)</span>
 </div>
 
 Let's see how we can use the SigLIP SAE to steer flux generations.
 We can use this lovely image from [krea.ai](https://krea.ai/) as an input image.
 Since SigLIP partitions an image into 27x27 patches, we can apply SAE on each patch embedding to see what steering vectors are present in each patch.
 
-<div className="center my-8 p-2">
-    ![patches](./images/steering/patches.png)
+<div class="center my-12">
+	<div class="p-2">![patches](./images/steering/patches.png)</div>
 </div>
 
 We quickly discover that there are two predominant steering vectors in the image: a hairbun vector and white flower vector.
 After looking up these vectors in the SAE, we can verify that these vectors are indeed hairbun and white flower vectors by inspecting the top activting samples.
 
-<div className="center my-8 p-2">
-    ![vectors](./images/steering/vectors.png)
-    <p className="opacity-50"> The colored patch represents the strength of the steering vector in the patch</p>
+<div class="center my-12">
+	<div class="p-2">![vectors](./images/steering/vectors.png)</div>
+	<span class="text-sm opacity-80 text-center">The colored patch represents the strength of the steering vector in the patch</span>
 </div>
 
 By feeding the SigLIP embedding of the above image to flux redux, we can steer the generation by increasing the strength of each steering vector.
 Note that we increase the strength of the steering vector on **all** patches.
 
-<div className="center my-8 p-2">
-    ![steering](./images/steering/teaser.png)
-    <p className="opacity-50"> Steering with SigLIP SAE + flux redux</p>
+<div class="center my-12">
+	<div class="p-2">![steering](./images/steering/teaser.png)</div>
+	<span class="text-sm opacity-80 text-center">Steering with SigLIP SAE + flux redux</span>
 </div>
 
 Seems quite effective! However, one small thing we notice is that while steering works fairly well, we notice that is starts to have a noticeable "grid" artifacts.
@@ -107,45 +107,41 @@ This phenomenon is quite likely due to the fact that steering is too strong, mak
 So making a combination of "concepts" more prevalent is possible. What above suppressing a concept?
 We can actually "clamp" the value of feature vectors to 0, dampening the effect of the steering vector.
 
-<div className="center my-8 p-2">
-    ![clamp](./images/steering/clamp.png)
-    <p className="opacity-50"> Suppressing concepts by clamping the feature vector</p>
+<div class="center my-12">
+	<div class="p-2">![clamp](./images/steering/clamp.png)</div>
+	<span class="text-sm opacity-80 text-center">Suppressing concepts by clamping the feature vector</span>
 </div>
 
 We see that by clamping the hairbun vector, we can make the subject "untie" her hairbun or make white flower less prevalent in the image.
 I've also found that setting the feature vector to negative values were also quite effective in suppressing the concept.
 
-<div className="center my-8 p-2">
-    <div className="md:w-2/3 p-2 center">
-        ![negative](./images/steering/negative.png)
-        <p className="opacity-50"> Suppressing concepts by setting the feature vector to negative values</p>
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![negative](./images/steering/negative.png)</div>
+	<span class="text-sm opacity-80 text-center">Suppressing concepts by setting the feature vector to negative values</span>
 </div>
 
 The use case for SAE based concept editing is not limited to manipulating existing concepts. If you find an interesting steering vector in the SAE, you can use these to "introduce new concepts" to the image.
 
-<div className="center my-8 p-2">
-    ![add](./images/steering/add.png)
-    <p className="opacity-50"> Introducing new concepts by increasing the strength of the feature vector</p>
+<div class="center my-12">
+	<div class="p-2">![add](./images/steering/add.png)</div>
+	<span class="text-sm opacity-80 text-center">Introducing new concepts by increasing the strength of the feature vector</span>
 </div>
 
 In my last manual exploration, I wasn't able to find a distinctive "style" vector within CC3M SAE. A huge majority of SAE steering vectors seem to be related to objects, scene, texture, etc.
 Perhaps, I should try training an SAE on something like LAION-art / LAION-aesthetic subset for finding steerable style vectors.
 One interesting observation is that due to the fact that so many CC3M images are sourced from getty images, I even found a "getty images watermark" vector. And yes, I found one for Alamay as well.
 
-<div className="center my-8 p-2">
-    ![getty](./images/steering/getty.png)
-    <p className="opacity-50"> Getty images watermark vector</p>
+<div class="center my-12">
+	<div class="p-2">![getty](./images/steering/getty.png)</div>
+	<span class="text-sm opacity-80 text-center">Getty images watermark vector</span>
 </div>
 
 Using these features, we can easily compose images with different concepts at the same time.
 
 
-<div className="center my-8 p-2">
-    <div className="md:w-2/3 p-2 center">
-        ![compose](./images/steering/compose.png)
-        <p className="opacity-50"> Composing images with different concepts</p>
-    </div>
+<div class="center my-12">
+	<div class="p-2 w-2/3">![compose](./images/steering/compose.png)</div>
+	<span class="text-sm opacity-80 text-center">Composing images with different concepts</span>
 </div>
 
 ## Thoughts on SAE based image editing

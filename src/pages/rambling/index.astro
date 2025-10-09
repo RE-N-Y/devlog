@@ -28,13 +28,13 @@ const posts = (await getCollection("rambling")).sort((a, b) => b.data.pubDate.va
 					{
 						posts.map((post) => (
 							<tr class="border-b border-white/30">
-								<td class="py-4 align-baseline w-auto">
+								<td class="py-4 align-baseline w-auto text-sm">
 									<FormattedDate date={post.data.pubDate} />
 								</td>
 								<td class="py-4 pl-8 align-baseline">
 									<div>
-										<p class="text-white mb-2">
-											<a href={`/rambling/${post.slug}/`}>{post.data.title}</a>
+										<p class="text-white mb-2 bungee no-underline">
+											<a href={`/devlog/rambling/${post.slug}/`}>{post.data.title}</a>
 										</p>
 										<p class="text-white/80 text-base">{post.data.description}</p>
 									</div>

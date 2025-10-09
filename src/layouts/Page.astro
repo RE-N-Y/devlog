@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css'
 import BaseHead from "@/src/components/BaseHead.astro"
 import { SITE_TITLE, SITE_DESCRIPTION, PREVIEW_IMAGE } from "@/src/consts"
 import Header from "@/src/components/Header.astro"
@@ -14,9 +15,7 @@ const _class = Astro.props.class
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
 	</head>
 	<body class={clsx("min-h-screen bg-black", _class)}>
-		<header>
-			<Header title={SITE_TITLE} />
-		</header>
+		<Header class="text-white" title={SITE_TITLE} />
 		<slot />
 	</body>
 </html>

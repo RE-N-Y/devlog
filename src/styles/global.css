@@ -1,18 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Cherry+Bomb+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Cherry+Bomb+One&display=swap')
+layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme {
+  --color-*: initial;
+  --color-primary: #7358c6;
+  --color-secondary: #f3e2fe;
+  --color-text: #282828;
+  --color-accent: #f5d0fe;
+  --color-background: #18181b;
+  --color-muted: hsl(210 40% 96.1%);
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-paper: oklch(92.4% 0.12 95.746);
+  --color-blue: #2B7FFF;
+
+  --font-*: initial;
+  --font-body:
+    Bungee, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-sans:
+    InterVariable, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif:
+    Roboto Slab Variable, ui-serif, Georgia, Cambria, 'Times New Roman', Times,
+    serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility center {
+  @apply flex flex-col items-center justify-center;
+}
+
+@utility lead {
+  @apply text-xl text-muted;
+}
+
+@utility cherry-bomb {
+  font-family: 'Cherry Bomb One', cursive;
+}
+
+@utility bungee {
+  font-family: 'Bungee', cursive;
+}
+
+@utility text-border {
+	text-shadow: 1px 1px 0px black, -1px -1px 0px black, 1px -1px 0px black, -1px 1px 0px black;
+}
 
 @layer base {
 	body {
-		@apply bg-background text-text;
+		@apply bg-background text-white;
 		font-feature-settings: "rlig" 1, "calt" 1;
 	}
 	h1 {
 		@apply mt-4 scroll-m-20 text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight;
 		font-family: 'Bungee', cursive;
-		text-shadow: 2px 2px 0px black, -2px -2px 0px black, 2px -2px 0px black, -2px 2px 0px black;
+		@apply text-border;
 	}
 	h2 {
 		@apply mt-4 scroll-m-20 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight transition-colors first:mt-0;
@@ -29,15 +92,10 @@
 		font-family: 'Bungee', cursive;
 	}
 	a {
-		/* @apply text-xl md:text-2xl font-bold; */
-		/* font-family: 'Bungee', cursive;
-		color: black;
-		text-shadow: 2px 2px 0px white, -2px -2px 0px white, 2px -2px 0px white, -2px 2px 0px white;
-		text-decoration: none; */
-		text-decoration: underline;
+		@apply underline;
 	}
 	p {
-		@apply leading-7 text-text [&:not(:first-child)]:mt-3;
+		@apply leading-7  not-first:mt-3;
 	}
 
 	blockquote {
@@ -55,34 +113,12 @@
 	pre {
 		@apply p-4;
 	}
-
-	svg {
-		@apply text-text;
-	}
-
+	
 	img {
-		@apply rounded-sm;
+		@apply rounded-xs;
 	}
 
 	pre {
-		@apply my-4 rounded-sm
-	}
-}
-
-@layer components {
-	.center {
-		@apply flex flex-col items-center justify-center;
-	}
-
-	.lead {
-		@apply text-xl text-muted;
-	}
-
-	.cherry-bomb {
-		font-family: 'Cherry Bomb One', cursive;
-	}
-
-	.bungee {
-		font-family: 'Bungee', cursive;
+		@apply my-4 rounded-xs text-sm;
 	}
 }

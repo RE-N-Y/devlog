@@ -3,38 +3,24 @@ import Marquee from "@/src/components/Marquee.tsx"
 
 interface KreaProps {
     children?: React.ReactNode
+    direction?: "left" | "right"
+    baseVelocity?: number
 }
 
-export const Krea = ({ children }: KreaProps) => {
-    
+export const Krea = ({ children, direction = "left", baseVelocity = 4 }: KreaProps) => {    
     return (
-        <div className="w-full relative justify-center items-center overflow-auto">
-            <Marquee
-                className="w-full m-4"
-                baseVelocity={4}
-                repeat={4}
-                draggable={true}
-                scrollSpringConfig={{ damping: 50, stiffness: 400 }}
-                slowDownFactor={0.1}
-                slowdownOnHover
-                slowDownSpringConfig={{ damping: 60, stiffness: 300 }}
-                direction="left"
-            >
-                {children}
-            </Marquee>
-            <Marquee
-                className="w-full m-4"
-                baseVelocity={2}
-                repeat={4}
-                draggable={true}
-                scrollSpringConfig={{ damping: 50, stiffness: 400 }}
-                slowDownFactor={0.1}
-                slowdownOnHover
-                slowDownSpringConfig={{ damping: 60, stiffness: 300 }}
-                direction="right"
-            >
-                {children}
-            </Marquee>
-        </div>
+        <Marquee
+            className="w-full m-4 rotate-x-5 -rotate-y-10"
+            baseVelocity={baseVelocity}
+            repeat={4}
+            draggable={true}
+            scrollSpringConfig={{ damping: 50, stiffness: 400 }}
+            slowDownFactor={0.1}
+            slowdownOnHover
+            slowDownSpringConfig={{ damping: 60, stiffness: 300 }}
+            direction={direction}
+        >
+            {children}
+        </Marquee>
     )
 }

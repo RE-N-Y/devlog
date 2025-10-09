@@ -5,11 +5,10 @@ pubDate: "October 1, 2023"
 heroImage: "./images/anime4m/bigbooru.png"
 ---
 
-## Overview
-
-![Bigbooru](./images/anime4m/bigbooru.png)
-
-<div className="center p-2 text-xl opacity-80">Preview of the Bigbooru dataset</div>
+<div class="center my-12">
+	<div class="p-2">![Bigbooru](./images/anime4m/bigbooru.png)</div>
+	<span class="text-sm opacity-80 text-center">Preview of the Bigbooru dataset</span>
+</div>
 
 Previously, I've open sourced my [Animefaces 2M Dataset](/devlog/rambling/anime2m/) where I've trained various
 image generation models. However, the previous dataset only contains 512x512 images of faces and also doesn't contain
@@ -19,12 +18,14 @@ medium, artist, style, nsfw rating, etc. However, this makes the dataset only su
 For this reason, I've decided to create a new dataset **Bigbooru**. A large scale multimodal dataset of anime illustration
 which contains **3,614,514** images.
 
-<div className="p-2">![modalities](./images/anime4m/modalities.png)</div>
-<div className="center p-2 text-xl opacity-80">Modalities supported in Bigbooru dataset</div>
+<div class="center my-12">
+	<div class="p-2">![modalities](./images/anime4m/modalities.png)</div>
+	<span class="text-sm opacity-80 text-center">Modalities supported in Bigbooru dataset</span>
+</div>
 
 Now, let's go over each modality and how I've collected, cleaned, and preprocessed them.
 
-## 🧹 Data Cleaning and Preprocessing
+## Data Cleaning and Preprocessing
 
 Bigbooru dataset is an improved version of the original Danbooru dataset. The filtering pipeline is almost identical to the methodologies used in the [Animefaces 2M Dataset](/devlog/rambling/anime2m/).
 Here's a quick summary of the filtering pipeline:
@@ -58,9 +59,9 @@ I've decided to go with **depth map** and **sketches** as the additional modalit
 
 For extrating depth map, I've used a segmentation / depth estimation model developed by [SkyTNT](https://github.com/SkyTNT/anime-segmentation) which provides quite accurate depth maps for anime illustrations.
 
-<div className="center p-2 my-4">
-	<div className="w-2/3">![anime2depth](./images/anime4m/anime2depth.jpg)</div>
-	<div className="p-2 text-xl opacity-80">Anime2Depth model</div>
+<div class="center my-12">
+	<div class="p-2">![anime2depth](./images/anime4m/anime2depth.jpg)</div>
+	<span class="text-sm opacity-80 text-center">Anime2Depth model</span>
 </div>
 
 Applying the model on the entire dataset took about 2~3 days on A100 GPU. Surprisingly, the model was robust across various art styles and forms.
@@ -74,9 +75,9 @@ Alternatives such as [SketchKeras](https://github.com/lllyasviel/sketchKeras) an
 However, these sketch extraction models struggle with **dark** images. My hypothesis is that the model typically assumes dark pixels are part of the line. For that reason, the model struggles to distinguish between the line and the background.
 Especially for Anime2Sketch, the model tends to generate grid artifacts in dark regions as shwon below.
 
-<div className="center p-2 my-4">
-	<div className="w-3/4">![artifacts](./images/anime4m/artifacts.png)</div>
-	<div className="p-2 text-xl opacity-80">Grid artifacts for dark images</div>
+<div class="center my-12">
+	<div class="p-2 w-3/4">![artifacts](./images/anime4m/artifacts.png)</div>
+	<span class="text-sm opacity-80 text-center">Grid artifacts for dark images</span>
 </div>
 
 In space of image generation, grid artifacts are typically caused by the deconvolution operation. This insight was extensively discussed in wonderful (but sadly discontinued) [Distil blog](https://distill.pub/2016/deconv-checkerboard/).
@@ -84,9 +85,9 @@ Sketch2Anime model uses a unet architecture with deconvolution (a.k.a ConvTransp
 The training setup is quite simple. The modified model is loaded with pretrained weights (except for modified layers) and trained to predict the original model output using L2 loss.
 Training was done on a single A100 GPU for a single epoch on Bigbooru dataset. The training took less than a day and the results were quite satisfactory.
 
-<div className="center p-2 my-4">
-	<div className="w-3/4">![artifacts](./images/anime4m/deconv.png)</div>
-	<div className="p-2 text-xl opacity-80">Improved version of Anime2Sketch</div>
+<div class="center my-12">
+	<div class="p-2 w-3/4">![artifacts](./images/anime4m/deconv.png)</div>
+	<span class="text-sm opacity-80 text-center">Improved version of Anime2Sketch</span>
 </div>
 
 Of course, the model predictions aren't perfect, but it significantly improves the quality of the sketches.

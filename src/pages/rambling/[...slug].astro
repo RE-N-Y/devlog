@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content"
 import RamblingPage from "../../layouts/RamblingPage.astro"
+import FormattedDate from "@/src/components/FormattedDate.astro"
 
 export async function getStaticPaths() {
 	const posts = await getCollection("rambling")
@@ -16,8 +17,14 @@ const { Content } = await post.render()
 ---
 
 <RamblingPage {...post.data}>
-	<div class="container mx-auto max-w-5xl px-4">
-		<h1>{post.data.title}</h1>
-		<Content />
-	</div>
+	<article class="container mx-auto max-w-4xl px-4 text-text font-serif">
+		<div class="center py-48 text-center">
+			<h2>{post.data.title}</h2>
+			<p class="text-2xl">{post.data.description}</p>
+			<p class="text-xl"><FormattedDate date={post.data.pubDate} /></p>
+		</div>
+		<div class="md:mx-24">
+			<Content />
+		</div>
+	</article>
 </RamblingPage>

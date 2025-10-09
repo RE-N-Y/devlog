@@ -1,22 +1,25 @@
 ---
 import HeaderLink from "./HeaderLink.astro"
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts"
-import twitter from "@/src/icons/twitter.svg?raw"
-import github from "@/src/icons/github.svg?raw"
-import coffee from "@/src/icons/coffee.svg?raw"
+import Twitter from "@/src/icons/twitter.svg"
+import Github from "@/src/icons/github.svg"
+import Coffee from "@/src/icons/coffee.svg"
+import clsx from "clsx"
+
+const _class = Astro.props.class
 ---
 
-<header class="container mx-auto mb-12 px-4">
+<header class={clsx("container mx-auto mb-12 px-4", _class)}>
 	<nav class="flex justify-between items-center py-4">
 		<div class="flex gap-x-8">
-			<HeaderLink href="/">HOME</HeaderLink>
-			<HeaderLink href="/projects">PROJECTS</HeaderLink>
-			<HeaderLink href="/rambling">RAMBLING</HeaderLink>
+			<HeaderLink href="/devlog/">HOME</HeaderLink>
+			<HeaderLink href="/devlog/projects">PROJECTS</HeaderLink>
+			<HeaderLink href="/devlog/rambling">RAMBLING</HeaderLink>
 		</div>
-		<div class="flex gap-x-4">
-			<HeaderLink href="https://github.com/RE-N-Y"><Fragment set:html={github} /></HeaderLink>
-			<HeaderLink href="https://twitter.com/sleenyre"><Fragment set:html={twitter} /></HeaderLink>
-			<HeaderLink href="https://www.buymeacoffee.com/sangwulee2g"><Fragment set:html={coffee} /></HeaderLink>
+		<div class="lg:flex gap-x-4 hidden">
+			<HeaderLink href="https://github.com/RE-N-Y"><Github stroke="currentColor" /></HeaderLink>
+			<HeaderLink href="https://twitter.com/sleenyre"><Twitter stroke="currentColor" /></HeaderLink>
+			<HeaderLink href="https://www.buymeacoffee.com/sangwulee2g"><Coffee stroke="currentColor" /></HeaderLink>
 		</div>
 	</nav>
 </header>
