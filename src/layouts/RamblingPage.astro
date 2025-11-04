@@ -15,7 +15,7 @@ const _class = Astro.props.class
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
 	</head>
 	<body class={clsx("min-h-screen bg-white relative", _class)}>
-		<svg class="fixed inset-0 w-full h-full pointer-events-none" style="z-index: -1; mix-blend-mode: overlay; opacity: 0.6;" xmlns="http://www.w3.org/2000/svg">
+		<svg class="fixed inset-0 w-full h-full pointer-events-none" style="z-index: -1; mix-blend-mode: overlay; opacity: 0.6; height: 200vh;" xmlns="http://www.w3.org/2000/svg">
 			<filter id="grainy">
 				<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="5" stitchTiles="stitch" />
 			</filter>
@@ -25,6 +25,7 @@ const _class = Astro.props.class
 		<div class="py-24">
 			<slot />
 		</div>
-		<div class="fixed inset-0 bg-paper pointer-events-none" style="z-index: 9998; mix-blend-mode: multiply; opacity: 0.25;"></div>
+		<!-- to prevent white space from showing up when scrolling extend the height of the page-->
+		<div class="fixed inset-0 bg-paper pointer-events-none " style="z-index: 9998; opacity: 0.25; height: 200vh;"></div>
 	</body>
 </html>

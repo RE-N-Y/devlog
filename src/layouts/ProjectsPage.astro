@@ -14,7 +14,7 @@ const _class = Astro.props.class
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} image={PREVIEW_IMAGE} />
 	</head>
 	<body class={clsx("min-h-screen bg-black", _class)}>
-		<Header class="text-white absolute top-0 left-0 right-0 z-50" title={SITE_TITLE} />
+		<Header class="text-white" title={SITE_TITLE} />
 		<slot />
 	</body>
 </html>
