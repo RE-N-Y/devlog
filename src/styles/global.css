@@ -121,4 +121,16 @@ layer(base);
 	pre {
 		@apply my-4 rounded-xs text-sm;
 	}
+
+	.katex {
+		text-rendering: auto;
+		line-height: 1.2;
+		text-indent: 0;
+		font-size: 100% !important;
+	}
+
+	.katex-display > .katex {
+		@apply overflow-x-auto overflow-y-hidden block text-center whitespace-nowrap;
+	}
+
 }
