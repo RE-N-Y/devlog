@@ -14,10 +14,11 @@ export const Krea = ({ children, direction = "left", baseVelocity = 4 }: KreaPro
             baseVelocity={baseVelocity}
             repeat={4}
             draggable={true}
-            scrollSpringConfig={{ damping: 50, stiffness: 400 }}
+            scrollSpringConfig={{ damping: 50, stiffness: 1600 }}
             slowDownFactor={0.1}
             slowdownOnHover
             slowDownSpringConfig={{ damping: 60, stiffness: 300 }}
+            dragSensitivity={0.02}
             direction={direction}
         >
             {children}
